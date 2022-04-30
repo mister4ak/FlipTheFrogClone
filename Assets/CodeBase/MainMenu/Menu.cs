@@ -67,10 +67,8 @@ namespace CodeBase.MainMenu
                 progressReader.LoadProgress(_progressService.Progress);
         }
 
-        private void OnPlayClicked()
-        {
+        private void OnPlayClicked() => 
             _crossfadeWindow.Open(() => _sceneLoader.Load(_gameSceneName));
-        }
 
         private void OnShopClicked()
         {

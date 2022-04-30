@@ -27,48 +27,34 @@ namespace CodeBase.UI.Windows
         
         private Sequence _handSequence;
         private Sequence _touchSequence;
-
-        private Quaternion _handImageRotation;
-        private Vector3 _handImagePosition;
-        private Vector3 _touchImagePosition;
-        private Color _touchImageColor;
         private IInputService _inputService;
+        private Vector2 _clickedPosition;
+        private Vector2 _releasedPosition;
+        private float _minDistance = 50f;
 
         [Inject]
-        private void Construct(IInputService inputService)
-        {
+        private void Construct(IInputService inputService) => 
             _inputService = inputService;
-        }
 
         public void StartTutorial()
         {
-            SaveImagesStartState();
-            _inputService.Released += OnFrogJumped; 
-
+            _inputService.Clicked += SaveClickedPosition;
+            _inputService.Released += OnFrogJumped;
             StartCoroutine(StartAnimation());
         }
 
+        private void SaveClickedPosition(Vector2 clickedPosition) => 
+            _clickedPosition = clickedPosition;
+
         private IEnumerator StartAnimation()
         {
-            //yield return new WaitForSeconds(0.3f);
             _canvasGroup.DOFade(1f, 0.5f);
             yield return new WaitForSeconds(0.5f);
             StartAnim();
         }
 
-        private void SaveImagesStartState()
-        {
-            _handImageRotation = _handImage.transform.rotation;
-            _handImagePosition = _handImage.transform.position;
-            _touchImagePosition = _touchImage.transform.position;
-            _touchImageColor = _touchImage.color;
-        }
-
         public void Open() => 
             gameObject.SetActive(true);
-
-        private void Close() => 
-            gameObject.SetActive(false);
 
         private void StartAnim()
         {
@@ -106,16 +92,19 @@ namespace CodeBase.UI.Windows
                 .SetLoops(-1, LoopType.Restart).SetUpdate(true);
         }
 
-        private void OnFrogJumped(Vector2 _)
+        private void OnFrogJumped(Vector2 releasedPosition)
         {
-            KillAnimations();
-            ResetImagesStates();
-            _inputService.Released -= OnFrogJumped; 
-            _canvasGroup.alpha = 0f;
-            Close();
+            _releasedPosition = releasedPosition;
+            if (ReleasedPositionSameAsClicked())
+                return;
             
+            KillAnimations();
+            _inputService.Released -= OnFrogJumped;
             Destroy(gameObject);
         }
+
+        private bool ReleasedPositionSameAsClicked() => 
+            Vector2.Distance(_clickedPosition, _releasedPosition) < _minDistance;
 
         private void KillAnimations()
         {
@@ -123,16 +112,6 @@ namespace CodeBase.UI.Windows
             _touchSequence.Kill();
         }
 
-        private void ResetImagesStates()
-        {
-            Transform handImageTransform = _handImage.transform;
-            handImageTransform.rotation = _handImageRotation;
-            handImageTransform.position = _handImagePosition;
-            
-            _touchImage.transform.position = _touchImagePosition;
-            _touchImage.color = _touchImageColor;
-        }
-        
         public class Factory : PlaceholderFactory<TutorialWindow>
         {
         }

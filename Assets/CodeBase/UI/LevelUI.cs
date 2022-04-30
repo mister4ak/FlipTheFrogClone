@@ -94,7 +94,6 @@ namespace CodeBase.UI
         {
             _crossfadeWindow.Open(() => MenuClicked?.Invoke());
             _pauseWindow.Close();
-            //MenuClicked?.Invoke();
         }
 
         public void OpenEndLevelWindow()
@@ -108,7 +107,6 @@ namespace CodeBase.UI
             _endLevelWindow.EndLevelScreenClicked -= CloseEndLevelWindow;
             _endLevelWindow.Close();
             _crossfadeWindow.Open(() => NextLevel?.Invoke());
-            //NextLevel?.Invoke();
         }
 
         public void StartTutorial()
