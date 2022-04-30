@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9555d698334eeda5fbf2c3440aa45a, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  ForceLaunch: 10
+  TrampolineForceLaunch: 20
+  MaxDragDistance: 100
+  StartPoint: {fileID: 3280701505324594925, guid: 67f31ca8e73cc8247816687851aac6b1, type: 3}

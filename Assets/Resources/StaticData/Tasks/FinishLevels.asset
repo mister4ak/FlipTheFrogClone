@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa9aaf8b2fb4e17bf2d1247bc434bb8, type: 3}
+  m_Name: FinishLevels
+  m_EditorClassIdentifier: 
+  taskId: 2
+  description: Finish 3 levels
+  sprite: {fileID: 21300000, guid: 987afc7a0d2adb14b80bfeddee9b367a, type: 3}
+  conditionNumber: 3
+  reward: 10
