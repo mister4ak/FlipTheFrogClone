@@ -13,7 +13,7 @@ namespace CodeBase.Infrastructure.Bootstrap
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        [SerializeField] private GameObject _hudPrefab;
+        [SerializeField] private CoinText _coinHudPrefab;
         [SerializeField] private CrossfadeWindow _crossfadeCanvas;
         [SerializeField] private CoroutineHelper _coroutineHelperPrefab;
         [SerializeField] private AudioPlayer _audioPlayerPrefab;
@@ -25,7 +25,6 @@ namespace CodeBase.Infrastructure.Bootstrap
             BindSaveLoadService();
             BindSceneLoader();
             BindCrossfadeCanvas();
-            BindAssetProvider();
             BindHud();
             BindAudioManager();
             BindStaticDataService();
@@ -63,7 +62,7 @@ namespace CodeBase.Infrastructure.Bootstrap
         private void BindHud()
         {
             CoinText hud = Container
-                .InstantiatePrefabForComponent<CoinText>(_hudPrefab);
+                .InstantiatePrefabForComponent<CoinText>(_coinHudPrefab);
 
             Container
                 .Bind<CoinText>()
@@ -112,14 +111,5 @@ namespace CodeBase.Infrastructure.Bootstrap
             else
                 Container.Bind<TouchInput>().AsSingle();
         }
-
-        private void BindAssetProvider()
-        {
-            Container
-                .Bind<AssetProvider>()
-                .AsSingle();
-        }
-        
-        
     }
 }

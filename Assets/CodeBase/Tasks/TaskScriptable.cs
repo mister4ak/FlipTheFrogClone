@@ -3,7 +3,7 @@
 namespace CodeBase.Tasks
 {
     [CreateAssetMenu(fileName = "NewTask", menuName = "Static Data/Task")]
-    public class Task : ScriptableObject
+    public class TaskScriptable : ScriptableObject
     {
         public TaskId taskId;
 

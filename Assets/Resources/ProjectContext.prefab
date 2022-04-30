@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4414689317cf8e48b8d7d6c5e428fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hudPrefab: {fileID: 3630650451080951601, guid: e040d862c4865014ab8607a782980f36, type: 3}
+  _coinHudPrefab: {fileID: 2770793718913440574, guid: e040d862c4865014ab8607a782980f36, type: 3}
   _crossfadeCanvas: {fileID: 869977606161807980, guid: 9b8a18fa6edb0da489e7bb4a466bb74e, type: 3}
   _coroutineHelperPrefab: {fileID: 8779209344663681288, guid: 78f88969c1281174b850bc4d4224e81e, type: 3}
   _audioPlayerPrefab: {fileID: 6041331888723816525, guid: ef88e69c9ab553e42b89f0d35fa12039, type: 3}

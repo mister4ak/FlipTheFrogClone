@@ -23,7 +23,7 @@ namespace CodeBase.UI
             UpdateCoins();
         }
 
-        public void UpdateCoins() => 
+        private void UpdateCoins() => 
             _coinText.text = _playerData.coins.ToString();
     }
 }

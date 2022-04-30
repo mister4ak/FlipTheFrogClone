@@ -6,13 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// https://www.youtube.com/watch?v=tObYBJIf1EM
-
 namespace CodeBase.MainMenu.PlayerShop
 {
     public class ShopWindow : MonoBehaviour, ISavedProgressReader
     {
-        private const string _buyedSkinText = "Choose";
+        private const string BuyedSkinText = "Choose";
+        private const float NotEnoughCoinsTextOffsetY = 37f;
 
         [SerializeField] private Button _shopCloseButton;
         [SerializeField] private GameObject _chosenSkinImage;
@@ -20,9 +19,8 @@ namespace CodeBase.MainMenu.PlayerShop
         [SerializeField] private TMP_Text _skinCost;
         [SerializeField] private Button _buySkinButton;
         [SerializeField] private TMP_Text _notEnoughCoinsText;
-        private Vector3 _notEnoughCoinsTextPosition;
-        private float _notEnoughCoinsTextOffsetY = 37f;
         
+        private Vector3 _notEnoughCoinsTextPosition;
         private ShopItem[] _items;
         private SkinData _skinData;
         private int _selectedItemID;
@@ -92,8 +90,12 @@ namespace CodeBase.MainMenu.PlayerShop
             _chosenSkinImage.gameObject.SetActive(true);
         }
 
-        private void ShowSkinIsBuyed() => 
-            _skinCost.text = _buyedSkinText;
+        private void ShowSkinIsBuyed()
+        {
+            _chosenSkinImage.gameObject.SetActive(false);
+            _buySkinButton.gameObject.SetActive(true);
+            _skinCost.text = BuyedSkinText;
+        }
 
         private void ShowSkinPrice()
         {
@@ -105,7 +107,7 @@ namespace CodeBase.MainMenu.PlayerShop
         public void ShowNotEnoughCoinsMessage()
         {
             _notEnoughCoinsText.transform.position = _notEnoughCoinsTextPosition;
-            _notEnoughCoinsText.transform.DOMoveY(_notEnoughCoinsText.transform.position.y + _notEnoughCoinsTextOffsetY, 0.5f);
+            _notEnoughCoinsText.transform.DOMoveY(_notEnoughCoinsText.transform.position.y + NotEnoughCoinsTextOffsetY, 0.5f);
             _notEnoughCoinsText.DOFade(1f, 0.7f);
             _notEnoughCoinsText.DOFade(0f, 0.5f).SetDelay(3f);
         }

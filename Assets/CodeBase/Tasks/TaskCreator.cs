@@ -12,7 +12,7 @@ namespace CodeBase.Tasks
         private readonly TaskUI _taskUI;
         
         private TaskId _currentTaskId;
-        private Task _currentTask;
+        private TaskScriptable _currentTaskScriptable;
         private PlayerData _playerData;
 
         private int _taskProgress;
@@ -29,15 +29,15 @@ namespace CodeBase.Tasks
         {
             if (_isTaskCompleted && _isRewardReceived)
                 GenerateRandomTask();
-            _currentTask = _staticDataService.ForTask(_currentTaskId);
-            _taskUI.Initialize(_currentTask, _isTaskCompleted, _taskProgress);
+            _currentTaskScriptable = _staticDataService.ForTask(_currentTaskId);
+            _taskUI.Initialize(_currentTaskScriptable, _isTaskCompleted, _taskProgress);
             _taskUI.RewardReceived += ReceiveReward;
         }
 
         private void ReceiveReward()
         {
             _isRewardReceived = true;
-            _playerData.AddCoins(_currentTask.reward);
+            _playerData.AddCoins(_currentTaskScriptable.reward);
             _taskUI.RewardReceived -= ReceiveReward;
         }
 

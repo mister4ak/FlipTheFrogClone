@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5166458376639895262}
   - component: {fileID: 2770793718913440574}
   m_Layer: 5
-  m_Name: Hud
+  m_Name: CoinHud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8593629026797256604}
-  - component: {fileID: 8593629026797256603}
   m_Layer: 5
   m_Name: CoinContainer
   m_TagString: Untagged
@@ -227,18 +226,6 @@ RectTransform:
   m_AnchoredPosition: {x: 125, y: -125}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &8593629026797256603
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8593629026797256605}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &8593629028109887971
 GameObject:
   m_ObjectHideFlags: 0

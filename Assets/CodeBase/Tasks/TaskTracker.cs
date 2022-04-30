@@ -15,7 +15,7 @@ namespace CodeBase.Tasks
         private readonly FrogMover _frogMover;
         private readonly LevelCreator _levelCreator;
         
-        private Task _currentTask;
+        private TaskScriptable _currentTaskScriptable;
         private TaskId _currentTaskId;
         private Coin[] _coins;
         private FinishLine _finishLine;
@@ -40,7 +40,7 @@ namespace CodeBase.Tasks
         {
             if (_isTaskCompleted)
                 return;
-            _currentTask = _staticDataService.ForTask(_currentTaskId);
+            _currentTaskScriptable = _staticDataService.ForTask(_currentTaskId);
             SubscribeForTaskAction();
         }
 
@@ -82,7 +82,7 @@ namespace CodeBase.Tasks
         private void TaskProgressed()
         {
             _taskProgress++;
-            if (_taskProgress == _currentTask.conditionNumber)
+            if (_taskProgress == _currentTaskScriptable.conditionNumber)
                 EndTask();
         }
 

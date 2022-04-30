@@ -19,7 +19,7 @@ namespace CodeBase.Tasks
         
         private Vector3 _rewardTextPosition;
         private Vector3 _taskDescriptionPosition;
-        private Task _currentTask;
+        private TaskScriptable _currentTaskScriptable;
         private bool _isTaskCompleted;
         private int _taskProgress;
         private const float _rewardTextOffsetY = 45f;
@@ -27,9 +27,9 @@ namespace CodeBase.Tasks
 
         public event Action RewardReceived;
 
-        public void Initialize(Task currentTask, bool isTaskCompleted, int taskProgress)
+        public void Initialize(TaskScriptable currentTaskScriptable, bool isTaskCompleted, int taskProgress)
         {
-            _currentTask = currentTask;
+            _currentTaskScriptable = currentTaskScriptable;
             _isTaskCompleted = isTaskCompleted;
             _taskProgress = taskProgress;
 
@@ -41,9 +41,9 @@ namespace CodeBase.Tasks
             }
             else
             {
-                _taskNameText.text = _currentTask.taskId.ToString();
-                _progressBar.fillAmount = (float)_taskProgress / _currentTask.conditionNumber;
-                _taskButtonImage.sprite = _currentTask.sprite;
+                _taskNameText.text = _currentTaskScriptable.taskId.ToString();
+                _progressBar.fillAmount = (float)_taskProgress / _currentTaskScriptable.conditionNumber;
+                _taskButtonImage.sprite = _currentTaskScriptable.sprite;
             }
 
             _taskDescriptionPosition = _taskDescription.transform.position;
@@ -68,7 +68,7 @@ namespace CodeBase.Tasks
         private void RewardAnimation()
         {
             _rewardText.transform.position = _rewardTextPosition;
-            _rewardText.text = $"+{_currentTask.reward}";
+            _rewardText.text = $"+{_currentTaskScriptable.reward}";
             _rewardText.transform.DOMoveY( _rewardText.transform.position.y + _rewardTextOffsetY, 0.5f);
             _rewardText.DOFade(1f, 0.7f);
             _rewardText.DOFade(0f, 0.5f).SetDelay(1f);
@@ -83,7 +83,7 @@ namespace CodeBase.Tasks
         private void ShowTaskDescription()
         {
             _taskDescription.transform.position = _taskDescriptionPosition;
-            _taskDescription.text = _currentTask.description;
+            _taskDescription.text = _currentTaskScriptable.description;
             _taskDescription.transform.DOMoveY(_taskDescription.transform.position.y + _taskDescriptionOffsetY, 0.5f);
             _taskDescription.DOFade(1f, 0.7f);
             _taskDescription.DOFade(0f, 0.5f).SetDelay(3f);
