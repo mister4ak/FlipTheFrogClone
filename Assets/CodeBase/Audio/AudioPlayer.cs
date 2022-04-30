@@ -1,4 +1,6 @@
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Audio
 {
@@ -7,22 +9,24 @@ namespace CodeBase.Audio
         [SerializeField] private AudioSource _jumpSound;
         [SerializeField] private AudioSource _collisionSound;
         [SerializeField] private AudioSource _backgroundMusic;
+        private PersistentProgressService _progressService;
         private bool _isAudioPaused;
 
-        public void Initialize(bool isAudioEnabled)
-        {
-            _isAudioPaused = isAudioEnabled;
-            AudioListener.pause = _isAudioPaused;
-            //PlayBackgroundMusic();
-        }
+        [Inject]
+        private void Construct(PersistentProgressService progressService) => 
+            _progressService = progressService;
 
-        private void PlayBackgroundMusic() => 
-            _backgroundMusic.Play();
+        private void Start()
+        {
+            _isAudioPaused = _progressService.Progress.PlayerSettings.isAudioPaused;
+            AudioListener.pause = _isAudioPaused;
+        }
 
         public void Jump()
         {
             if (_isAudioPaused)
                 return;
+            
             _jumpSound.pitch = Random.Range(0.9f, 1.1f);
             _jumpSound.Play();
         }
@@ -31,6 +35,7 @@ namespace CodeBase.Audio
         {
             if (_isAudioPaused)
                 return;
+            
             _collisionSound.pitch = Random.Range(0.9f, 1.1f);
             _collisionSound.Play();
         }

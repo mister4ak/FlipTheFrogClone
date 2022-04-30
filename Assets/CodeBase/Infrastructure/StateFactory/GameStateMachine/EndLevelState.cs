@@ -6,7 +6,6 @@ using CodeBase.Frog;
 using CodeBase.GameCamera;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.UI;
 using UnityEngine;
 using Zenject;
@@ -84,7 +83,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
 
         private void MoveToNextLevel()
         {
-            _frogPlayer.Reset(_staticData.PlayerData().StartPoint.position);
+            _frogPlayer.ResetFrog(_staticData.PlayerData().StartPoint.position);
             _frogCamera.ResetPosition();
             
             _cinemachineSwitcher.SwitchState();

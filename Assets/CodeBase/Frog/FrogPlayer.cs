@@ -27,10 +27,8 @@ namespace CodeBase.Frog
             _frogArrow.SetStartPosition(position);
         }
 
-        public void SetHoldPosition(Vector2 position)
-        {
+        public void SetHoldPosition(Vector2 position) => 
             _frogArrow.SetHoldArrowPosition(position);
-        }
 
         public void SetReleasedPosition(Vector2 position)
         {
@@ -54,7 +52,7 @@ namespace CodeBase.Frog
         private void SetPosition(Vector2 position) => 
             transform.position = position;
 
-        public void Reset(Vector2 startPosition)
+        public void ResetFrog(Vector2 startPosition)
         {
             SetFrogTrailState(false);
             SetPosition(startPosition);
@@ -90,6 +88,11 @@ namespace CodeBase.Frog
         public void LoadProgress(PlayerProgress progress)
         {
             _skinPath = progress.SkinData.skinSpritePath;
+            ChangeSkin();
+        }
+
+        private void ChangeSkin()
+        {
             Sprite skin = Resources.Load<Sprite>(_skinPath);
             _spriteRenderer.sprite = skin;
         }

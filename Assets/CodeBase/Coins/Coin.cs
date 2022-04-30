@@ -6,8 +6,8 @@ namespace CodeBase.Coins
 {
     public class Coin : MonoBehaviour
     {
-        private int _coinReward = 1;
-        public int Reward => _coinReward;
+        private const int CoinReward = 1;
+        public int Reward => CoinReward;
 
         public event Action<Coin> CoinPicked;
 
@@ -20,9 +20,7 @@ namespace CodeBase.Coins
             }
         }
 
-        public void SetActiveState(bool state)
-        {
+        public void SetActiveState(bool state) => 
             gameObject.SetActive(state);
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeBase.Data;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.StaticData;
 using Random = System.Random;
 
 namespace CodeBase.Tasks
@@ -12,7 +12,7 @@ namespace CodeBase.Tasks
         private readonly TaskUI _taskUI;
         
         private TaskId _currentTaskId;
-        private TaskScriptable _currentTaskScriptable;
+        private Task _currentTask;
         private PlayerData _playerData;
 
         private int _taskProgress;
@@ -29,15 +29,15 @@ namespace CodeBase.Tasks
         {
             if (_isTaskCompleted && _isRewardReceived)
                 GenerateRandomTask();
-            _currentTaskScriptable = _staticDataService.ForTask(_currentTaskId);
-            _taskUI.Initialize(_currentTaskScriptable, _isTaskCompleted, _taskProgress);
+            _currentTask = _staticDataService.ForTask(_currentTaskId);
+            _taskUI.Initialize(_currentTask, _isTaskCompleted, _taskProgress);
             _taskUI.RewardReceived += ReceiveReward;
         }
 
         private void ReceiveReward()
         {
             _isRewardReceived = true;
-            _playerData.AddCoins(_currentTaskScriptable.reward);
+            _playerData.AddCoins(_currentTask.reward);
             _taskUI.RewardReceived -= ReceiveReward;
         }
 

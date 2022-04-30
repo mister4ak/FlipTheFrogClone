@@ -38,8 +38,6 @@ namespace CodeBase.MainMenu
         {
             Subscribe();
             
-            _audioPlayer.Initialize(_settingsData.isAudioPaused);
-            
             _soundImage = _soundButton.GetComponent<Image>();
             _vibrationImage = _vibrationButton.GetComponent<Image>();
             ChangeSoundImage(_settingsData.isAudioPaused);
@@ -81,7 +79,7 @@ namespace CodeBase.MainMenu
         private void ChangeVibrationImage(bool isVibrationEnabled) => 
             _vibrationImage.sprite = isVibrationEnabled ? _vibrationOnImage : _vibrationOffImage;
 
-        public void Disable()
+        public void Cleanup()
         {
             _soundButton.onClick.RemoveListener(OnSoundButtonClick);
             _vibrationButton.onClick.RemoveListener(OnVibrationButtonClick);

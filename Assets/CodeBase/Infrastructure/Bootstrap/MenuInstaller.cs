@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.Ads;
+﻿using CodeBase.Infrastructure.Services;
 using CodeBase.MainMenu;
 using CodeBase.MainMenu.PlayerShop;
 using CodeBase.Tasks;

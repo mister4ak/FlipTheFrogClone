@@ -2,9 +2,8 @@
 using System.IO;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagment;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Tasks;
 using UnityEngine;
 using Zenject;

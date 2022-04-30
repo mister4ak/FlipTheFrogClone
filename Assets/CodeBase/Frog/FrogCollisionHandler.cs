@@ -14,9 +14,9 @@ namespace CodeBase.Frog
         [Inject]
         private void Construct(FrogPlayer frogPlayer, AudioPlayer audioPlayer, ParticleEmmiter particleEmmiter)
         {
-            _particleEmmiter = particleEmmiter;
-            _audioPlayer = audioPlayer;
             _frogPlayer = frogPlayer;
+            _audioPlayer = audioPlayer;
+            _particleEmmiter = particleEmmiter;
         }
 
         public void Initialize()

@@ -7,14 +7,14 @@ namespace CodeBase.Coins
     public class CoinCollisionHandler
     {
         private ParticleEmmiter _particleEmmiter;
-        private Coin[] _coins;
         private PlayerProgress _progress;
+        private Coin[] _coins;
 
         [Inject]
         private void Construct(ParticleEmmiter particleEmmiter, PersistentProgressService progressService)
         {
-            _progress = progressService.Progress;
             _particleEmmiter = particleEmmiter;
+            _progress = progressService.Progress;
         }
 
         public void Initialize(Coin[] coins)

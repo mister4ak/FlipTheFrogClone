@@ -4,8 +4,8 @@ using CodeBase.Colliders;
 using CodeBase.Data;
 using CodeBase.Frog;
 using CodeBase.Infrastructure.Factories;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.StaticData;
 
 namespace CodeBase.Tasks
 {
@@ -15,7 +15,7 @@ namespace CodeBase.Tasks
         private readonly FrogMover _frogMover;
         private readonly LevelCreator _levelCreator;
         
-        private TaskScriptable _currentTaskScriptable;
+        private Task _currentTask;
         private TaskId _currentTaskId;
         private Coin[] _coins;
         private FinishLine _finishLine;
@@ -40,7 +40,7 @@ namespace CodeBase.Tasks
         {
             if (_isTaskCompleted)
                 return;
-            _currentTaskScriptable = _staticDataService.ForTask(_currentTaskId);
+            _currentTask = _staticDataService.ForTask(_currentTaskId);
             SubscribeForTaskAction();
         }
 
@@ -82,7 +82,7 @@ namespace CodeBase.Tasks
         private void TaskProgressed()
         {
             _taskProgress++;
-            if (_taskProgress == _currentTaskScriptable.conditionNumber)
+            if (_taskProgress == _currentTask.conditionNumber)
                 EndTask();
         }
 

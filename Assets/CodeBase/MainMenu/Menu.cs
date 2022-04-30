@@ -1,6 +1,6 @@
 ﻿using System;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.MainMenu.PlayerShop;
 using CodeBase.Tasks;
 using CodeBase.UI.Windows;
@@ -94,7 +94,7 @@ namespace CodeBase.MainMenu
             Unsubscribe();
 
             _shop.Disable();
-            _menuSettings.Disable();
+            _menuSettings.Cleanup();
 
             DG.Tweening.DOTween.KillAll();
         }

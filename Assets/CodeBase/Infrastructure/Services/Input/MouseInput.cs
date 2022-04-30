@@ -11,19 +11,9 @@ namespace CodeBase.Infrastructure.Services.Input
         public event Action<Vector2> Released;
         
         private Vector2 _inputPosition;
-        private TimeService _timeService;
-
-        [Inject]
-        private void Construct(TimeService timeService)
-        {
-            _timeService = timeService;
-        }
-
+        
         public void Tick()
         {
-            if (_timeService.IsPaused)
-                return;
-            
             _inputPosition = UnityEngine.Input.mousePosition;
             
             if (UnityEngine.Input.GetMouseButtonDown(0))

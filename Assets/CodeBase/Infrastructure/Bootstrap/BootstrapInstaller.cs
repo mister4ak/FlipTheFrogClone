@@ -1,9 +1,7 @@
 ﻿using CodeBase.Audio;
-using CodeBase.Infrastructure.AssetManagment;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.UI;
 using CodeBase.UI.Windows;
 using UnityEngine;
@@ -26,7 +24,7 @@ namespace CodeBase.Infrastructure.Bootstrap
             BindSceneLoader();
             BindCrossfadeCanvas();
             BindHud();
-            BindAudioManager();
+            BindAudioPlayer();
             BindStaticDataService();
         }
 
@@ -48,7 +46,7 @@ namespace CodeBase.Infrastructure.Bootstrap
                 .AsSingle();
         }
 
-        private void BindAudioManager()
+        private void BindAudioPlayer()
         {
             AudioPlayer audioPlayer = Container
                 .InstantiatePrefabForComponent<AudioPlayer>(_audioPlayerPrefab);

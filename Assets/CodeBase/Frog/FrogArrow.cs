@@ -1,4 +1,4 @@
-using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
 
@@ -54,10 +54,16 @@ namespace CodeBase.Frog
 
         private void SetArrowlineCroppedLength(Vector2 holdPosition, float dragDistance)
         {
-            _arrowLine.SetPosition(1, (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance * dragDistance);
-            _arrowhead.transform.localPosition = (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance *
-                                             dragDistance;
+            _arrowLine.SetPosition(1, 
+                (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance * dragDistance);
+            _arrowhead.transform.localPosition = 
+                (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance * dragDistance;
             
+            ChangeArrowheadAlpha(dragDistance);
+        }
+
+        private void ChangeArrowheadAlpha(float dragDistance)
+        {
             Color color = _arrowhead.color;
             color = new Color(color.r, color.g, color.b, dragDistance / _maxDragDistance);
             _arrowhead.color = color;

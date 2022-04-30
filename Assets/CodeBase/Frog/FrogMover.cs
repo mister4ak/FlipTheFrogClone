@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Audio;
-using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services;
 using CodeBase.StaticData;
 using DG.Tweening;
 using UnityEngine;
@@ -17,10 +17,10 @@ namespace CodeBase.Frog
         [SerializeField] private Rigidbody2D _frogRigidbody;
         [SerializeField] private LayerMask _tutorialLayer;
         private StaticDataService _staticData;
-        private PointerEventData _eventData;
-        private List<RaycastResult> _raycastResults;
         private ParticleEmmiter _particleEmmiter;
         private AudioPlayer _audioPlayer;
+        private PointerEventData _eventData;
+        private List<RaycastResult> _raycastResults;
         
         private Vector2 _clickedPosition;
         private Vector2 _releasedPosition;

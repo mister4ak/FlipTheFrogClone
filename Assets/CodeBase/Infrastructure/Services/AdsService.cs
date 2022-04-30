@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Services.Ads
+namespace CodeBase.Infrastructure.Services
 {
     public class AdsService : IUnityAdsListener, IInitializable
     {

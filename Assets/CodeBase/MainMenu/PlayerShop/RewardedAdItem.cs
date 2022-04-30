@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.Ads;
+﻿using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.UI;

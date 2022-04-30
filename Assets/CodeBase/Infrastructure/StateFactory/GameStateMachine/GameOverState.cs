@@ -5,7 +5,7 @@ using CodeBase.Colliders;
 using CodeBase.Frog;
 using CodeBase.GameCamera;
 using CodeBase.Infrastructure.Factories;
-using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services;
 using CodeBase.UI;
 using UnityEngine;
 using Zenject;
@@ -66,7 +66,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             _deadZone.gameObject.SetActive(false);
             yield return new WaitForSeconds(1);
             
-            _frogPlayer.Reset(_staticData.PlayerData().StartPoint.position);
+            _frogPlayer.ResetFrog(_staticData.PlayerData().StartPoint.position);
             _frogCamera.ResetPosition();
             
             ResetCoinsActiveState();

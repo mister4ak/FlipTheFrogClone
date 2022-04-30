@@ -14,23 +14,22 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
 {
     public class GameLoopState : IState, IInitializable, ISavedProgress
     {
-        private const string _mainMenuScene = "MainMenu";
-        private FrogPlayer _frogPlayer;
-        private LevelUI _levelUI;
-        private LevelCreator _levelCreator;
-        private FinishLine _finishLine;
-        private TimeService _timeService;
-        private SceneLoader _sceneLoader;
-        private IInputService _inputService;
-        private PlayerData _playerData;
+        private const string MainMenuScene = "MainMenu";
+        private const int LevelsRequiredForTraining = 3;
         
-        private readonly int _levelsRequiredForTraining = 3;
-
+        private readonly FrogPlayer _frogPlayer;
+        private readonly LevelUI _levelUI;
+        private readonly LevelCreator _levelCreator;
+        private readonly TimeService _timeService;
+        private readonly SceneLoader _sceneLoader;
+        private readonly IInputService _inputService;
+        private FinishLine _finishLine;
+        private PlayerData _playerData;
+        private bool _isPaused;
         public event Action GameOver;
         public event Action LevelCompleted;
-
-        [Inject]
-        private void Construct(
+        
+        public GameLoopState(
             FrogPlayer frogPlayer, 
             LevelUI levelUI, 
             LevelCreator levelCreator,
@@ -51,9 +50,21 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         {
             _levelCreator.LevelCreated += OnLevelCreated;
             _frogPlayer.Died += FrogDied;
-            _levelUI.GamePaused += () => _timeService.Stop();
-            _levelUI.GameResumed += () => _timeService.Resume();
+            _levelUI.GamePaused += OnPausedGame;
+            _levelUI.GameResumed += OnContinueGame;
             _levelUI.MenuClicked += LoadMenu;
+        }
+
+        private void OnContinueGame()
+        {
+            _isPaused = false;
+            _timeService.Resume();
+        }
+
+        private void OnPausedGame()
+        {
+            _isPaused = true;
+            _timeService.Stop();
         }
 
         public void OnEnter()
@@ -68,7 +79,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
 
         private void CheckTutorialCompleted()
         {
-            if (_playerData.isTutorialCompleted == false && _playerData.currentLevelIndex < _levelsRequiredForTraining)
+            if (_playerData.isTutorialCompleted == false && _playerData.currentLevelIndex < LevelsRequiredForTraining)
                 _levelUI.StartTutorial();
             else
                 _playerData.isTutorialCompleted = true;
@@ -76,15 +87,26 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
 
         private void OnClicked(Vector2 position)
         {
+            if (_isPaused)
+                return;
+            
             _frogPlayer.SetStartPosition(position);
             _timeService.SlowDown();
         }
 
-        private void OnHold(Vector2 position) => 
+        private void OnHold(Vector2 position)
+        {
+            if (_isPaused)
+                return;
+            
             _frogPlayer.SetHoldPosition(position);
+        }
 
         private void OnReleased(Vector2 position)
         {
+            if (_isPaused)
+                return;
+            
             _frogPlayer.SetReleasedPosition(position);
             _timeService.Resume();
         }
@@ -119,7 +141,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         private void LoadMenu()
         {
             _timeService.Resume();
-            _sceneLoader.Load(_mainMenuScene);
+            _sceneLoader.Load(MainMenuScene);
         }
 
         private void FrogFinished()
