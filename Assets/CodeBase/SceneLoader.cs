@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,31 +8,26 @@ namespace CodeBase
     public class SceneLoader
     {
         private readonly CoroutineHelper _coroutineHelper;
-        private readonly CrossfadeWindow _crossfadeWindow;
         private AsyncOperation _asyncOperation;
 
-        public SceneLoader(CoroutineHelper coroutineHelper, CrossfadeWindow crossfadeWindow)
+        public SceneLoader(CoroutineHelper coroutineHelper)
         {
-            _crossfadeWindow = crossfadeWindow;
             _coroutineHelper = coroutineHelper;
         }
 
-        public void Load(string sceneName, bool waitForCrossfade = true)
+        public void Load(string sceneName, Action onLoaded = null)
         {
-            _coroutineHelper.StartCoroutine(LoadSceneCoroutine(sceneName, waitForCrossfade));
-            _crossfadeWindow.CrossfadeEnded += ActivateNextScene;
+            _coroutineHelper.StartCoroutine(LoadSceneCoroutine(sceneName, onLoaded));
         }
 
-        private IEnumerator LoadSceneCoroutine(string sceneName, bool waitForCrossfade = true)
+        private IEnumerator LoadSceneCoroutine(string sceneName, Action onLoaded = null)
         {
             _asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-            _asyncOperation.allowSceneActivation = !waitForCrossfade;
 
             while (!_asyncOperation.isDone)
                 yield return null;
+            
+            onLoaded?.Invoke();
         }
-
-        private void ActivateNextScene() => 
-            _asyncOperation.allowSceneActivation = true;
     }
 }

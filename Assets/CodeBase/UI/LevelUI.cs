@@ -1,5 +1,6 @@
 using System;
 using CodeBase.UI.Windows;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -91,9 +92,9 @@ namespace CodeBase.UI
 
         private void LoadMenu()
         {
-            _crossfadeWindow.Open();
+            _crossfadeWindow.Open(() => MenuClicked?.Invoke());
             _pauseWindow.Close();
-            MenuClicked?.Invoke();
+            //MenuClicked?.Invoke();
         }
 
         public void OpenEndLevelWindow()
@@ -106,7 +107,8 @@ namespace CodeBase.UI
         {
             _endLevelWindow.EndLevelScreenClicked -= CloseEndLevelWindow;
             _endLevelWindow.Close();
-            NextLevel?.Invoke();
+            _crossfadeWindow.Open(() => NextLevel?.Invoke());
+            //NextLevel?.Invoke();
         }
 
         public void StartTutorial()

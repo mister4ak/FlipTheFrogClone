@@ -11,34 +11,30 @@ namespace CodeBase.UI.Windows
         private const float _minAlpha = 0f;
         private const float _fadeDuration = 0.5f;
 
-        public event Action CrossfadeEnded;
-
         private void Awake() => 
             DontDestroyOnLoad(gameObject);
 
-        public void Open()
+        public void Open(Action onCrossfadeEnded = null)
         {
             gameObject.SetActive(true);
             _canvasGroup.alpha = _minAlpha;
             _canvasGroup.blocksRaycasts = true;
             _canvasGroup.DOFade(_maxAlpha, _fadeDuration)
                 .SetUpdate(true)
-                .OnComplete(() => CrossfadeEnded?.Invoke());
+                .OnComplete(() => onCrossfadeEnded?.Invoke());
         }
 
-        public void Close()
+        public void Close(Action onCrossfadeEnded = null)
         {
             _canvasGroup.alpha = _maxAlpha;
             _canvasGroup.blocksRaycasts = false;
             _canvasGroup.DOFade(_minAlpha, _fadeDuration)
                 .SetUpdate(true)
-                .OnComplete(OnCrossfadeEnded);
-        }
-
-        private void OnCrossfadeEnded()
-        {
-            CrossfadeEnded?.Invoke();
-            gameObject.SetActive(false);
+                .OnComplete(() =>
+                {
+                    onCrossfadeEnded?.Invoke();
+                    gameObject.SetActive(false);
+                });
         }
     }
 }

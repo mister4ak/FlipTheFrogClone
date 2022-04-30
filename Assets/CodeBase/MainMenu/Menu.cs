@@ -69,8 +69,7 @@ namespace CodeBase.MainMenu
 
         private void OnPlayClicked()
         {
-            _crossfadeWindow.Open();
-            _sceneLoader.Load(_gameSceneName);
+            _crossfadeWindow.Open(() => _sceneLoader.Load(_gameSceneName));
         }
 
         private void OnShopClicked()

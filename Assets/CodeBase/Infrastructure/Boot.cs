@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagment;
@@ -37,7 +36,7 @@ namespace CodeBase.Infrastructure
 
             LoadProgressOrInitNew();
             LoadStaticData();
-            _sceneLoader.Load(MainMenuScene, false);
+            _sceneLoader.Load(MainMenuScene);
         }
 
         private void LoadProgressOrInitNew() => 

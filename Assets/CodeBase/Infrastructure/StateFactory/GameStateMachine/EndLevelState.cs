@@ -26,7 +26,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         private FrogCameraFollower _frogCamera;
         private PlayerProgress _progress;
         private StaticDataService _staticData;
-        private const float _moveDuration = 1f;
+        private const float MoveDuration = 1f;
 
         public event Action LevelEnded;
         
@@ -76,7 +76,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             _timeService.Resume();
 
             yield return new WaitForSeconds(1f);
-            _frogPlayer.Move(_belowMoonTransform.position, _moonTransform.position, _moveDuration);
+            _frogPlayer.Move(_belowMoonTransform.position, _moonTransform.position, MoveDuration);
             
             yield return new WaitForSeconds(1f);
             _levelUI.OpenEndLevelWindow();
