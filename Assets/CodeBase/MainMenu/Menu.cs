@@ -10,35 +10,43 @@ namespace CodeBase.MainMenu
 {
     public class Menu : IInitializable, IDisposable
     {
-        private const string _gameSceneName = "Game";
+        private const string GameSceneName = "Game";
         private readonly CrossfadeWindow _crossfadeWindow;
         private readonly MenuWindow _menuWindow;
         private readonly Shop _shop;
         private readonly MenuSettings _menuSettings;
-        private readonly PersistentProgressService _progressService;
-        private readonly ISavedProgressReader[] _progressReaders;
-        private readonly SceneLoader _sceneLoader;
         private readonly TaskCreator _taskCreator;
-        private readonly ISavedProgress[] _progressWriters;
+        private readonly SceneLoader _sceneLoader;
+        private readonly PersistentProgressService _progressService;
         private readonly SaveLoadService _saveLoadService;
+        private readonly ISavedProgressReader[] _progressReaders;
+        private readonly ISavedProgress[] _progressWriters;
 
-        public Menu(CrossfadeWindow crossfadeWindow, SceneLoader sceneLoader, TaskCreator taskCreator,
-            MenuWindow menuWindow, Shop shop, MenuSettings menuSettings, SaveLoadService saveLoadService,
-            PersistentProgressService progressService ,ISavedProgressReader[] progressReaders, ISavedProgress[] progressWriters)
+        public Menu(
+            CrossfadeWindow crossfadeWindow, 
+            MenuWindow menuWindow, 
+            Shop shop, 
+            MenuSettings menuSettings, 
+            TaskCreator taskCreator,
+            SceneLoader sceneLoader, 
+            PersistentProgressService progressService ,
+            SaveLoadService saveLoadService,
+            ISavedProgressReader[] progressReaders,
+            ISavedProgress[] progressWriters
+            )
         {
-            _saveLoadService = saveLoadService;
-            _progressWriters = progressWriters;
+            _crossfadeWindow = crossfadeWindow;
+            _menuWindow = menuWindow;
+            _shop = shop;
+            _menuSettings = menuSettings;
             _taskCreator = taskCreator;
             _sceneLoader = sceneLoader;
             _progressService = progressService;
+            _saveLoadService = saveLoadService;
             _progressReaders = progressReaders;
-            _menuSettings = menuSettings;
-            _shop = shop;
-            _menuWindow = menuWindow;
-            _crossfadeWindow = crossfadeWindow;
+            _progressWriters = progressWriters;
         }
-
-
+        
         public void Initialize()
         {
             Subscribe();
@@ -68,7 +76,7 @@ namespace CodeBase.MainMenu
         }
 
         private void OnPlayClicked() => 
-            _crossfadeWindow.Open(() => _sceneLoader.Load(_gameSceneName));
+            _crossfadeWindow.Open(() => _sceneLoader.Load(GameSceneName));
 
         private void OnShopClicked()
         {
@@ -84,7 +92,7 @@ namespace CodeBase.MainMenu
 
         private void OnMenuSettingsCloseClicked()
         {
-            _menuSettings.Close();
+            _menuSettings.CloseButtonClicked();
             _menuWindow.Open();
         }
 

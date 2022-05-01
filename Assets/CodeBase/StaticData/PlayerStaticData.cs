@@ -6,14 +6,14 @@ namespace CodeBase.StaticData
     public class PlayerStaticData: ScriptableObject
     {
         [Range(1,20)]
-        public float ForceLaunch;
+        public float forceLaunch;
 
         [Range(1, 40)]
-        public float TrampolineForceLaunch;
+        public float trampolineForceLaunch;
 
         [Range(1,100)]
-        public float MaxDragDistance;
+        public float maxDragDistance;
 
-        public Transform StartPoint;
+        public Transform startPoint;
     }
 }

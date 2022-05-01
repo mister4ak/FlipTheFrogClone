@@ -20,7 +20,7 @@ namespace CodeBase.Frog
 
         private void Start()
         {
-            _maxDragDistance = _staticData.PlayerData().MaxDragDistance;
+            _maxDragDistance = _staticData.PlayerData().maxDragDistance;
             _arrowLine.positionCount = 2;
             SetZeroPosition();
 

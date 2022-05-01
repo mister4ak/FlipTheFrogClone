@@ -3,5 +3,6 @@
 namespace CodeBase.Spikes
 {
     public class Spike : MonoBehaviour
-    {}
+    {
+    }
 }

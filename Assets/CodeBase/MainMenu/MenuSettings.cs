@@ -53,11 +53,14 @@ namespace CodeBase.MainMenu
         public void Open()
         {
             gameObject.SetActive(true);
-            _settingsCloseButton.onClick.AddListener(() => Closed?.Invoke());
+            _settingsCloseButton.onClick.AddListener(CloseButtonClicked);
         }
 
-        public void Close() => 
+        public void CloseButtonClicked()
+        {
+            Closed?.Invoke();
             gameObject.SetActive(false);
+        }
 
         private void OnSoundButtonClick()
         {

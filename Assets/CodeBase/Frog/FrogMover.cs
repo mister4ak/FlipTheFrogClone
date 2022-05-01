@@ -48,8 +48,8 @@ namespace CodeBase.Frog
         private void InitStaticData()
         {
             PlayerStaticData playerData = _staticData.PlayerData();
-            _forceLaunch = playerData.ForceLaunch;
-            _maxDragDistance = playerData.MaxDragDistance;
+            _forceLaunch = playerData.forceLaunch;
+            _maxDragDistance = playerData.maxDragDistance;
         }
 
         private void InitEventSystemForUIHit()
@@ -59,7 +59,7 @@ namespace CodeBase.Frog
         }
 
         public void JumpFromTrampoline(Trampoline trampoline) => 
-            Launch(trampoline.GetLaunchDirection(), _staticData.PlayerData().TrampolineForceLaunch);
+            Launch(trampoline.GetLaunchDirection(), _staticData.PlayerData().trampolineForceLaunch);
 
         public void ResetVelocity() => 
             _frogRigidbody.velocity = Vector2.zero;
