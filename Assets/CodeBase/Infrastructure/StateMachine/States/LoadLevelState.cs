@@ -50,10 +50,8 @@ namespace CodeBase.Infrastructure.StateMachine.States
         private void LoadLevel()
         {
             if (_playerData.currentLevelIndex > _playerData.levelsCount)
-            {
                 _playerData.currentLevelIndex = _playerData.levelsCount;
-                Debug.Log("Игра пройдена, загружается последний уровень");
-            }
+            
             _levelCreator.LoadCurrentLevel(_playerData.currentLevelIndex);
             _levelData = _levelCreator.GetData();
             _isLevelLoaded = true;

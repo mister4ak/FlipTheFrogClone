@@ -63,7 +63,7 @@ namespace CodeBase.MainMenu.PlayerShop
         public void ChangeCurrentItem(int itemID)
         {
             _selectedItemID = itemID;
-            _skinName.text = _items[itemID].title;
+            _skinName.text = _items[itemID].Title;
             ChangeButtonState();
         }
 
@@ -101,7 +101,7 @@ namespace CodeBase.MainMenu.PlayerShop
         {
             _chosenSkinImage.gameObject.SetActive(false);
             _buySkinButton.gameObject.SetActive(true);
-            _skinCost.text = _items[_selectedItemID].cost.ToString();
+            _skinCost.text = _items[_selectedItemID].Cost.ToString();
         }
 
         public void ShowNotEnoughCoinsMessage()

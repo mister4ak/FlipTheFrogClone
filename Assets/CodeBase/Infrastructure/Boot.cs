@@ -15,13 +15,20 @@ namespace CodeBase.Infrastructure
         private const string MainMenuScene = "MainMenu";
         private const string LevelsDirectoryPath = "Assets/Resources/Levels";
         private const string SearchPattern = "*.prefab";
+        private const string DefaultSkinName = "FrogBrown";
+        
         private SceneLoader _sceneLoader;
         private PersistentProgressService _progressService;
         private SaveLoadService _saveLoadService;
         private StaticDataService _staticData;
 
         [Inject]
-        public void Construct(StaticDataService staticData, SaveLoadService saveLoadService, PersistentProgressService progressService, SceneLoader sceneLoader)
+        public void Construct(
+            StaticDataService staticData, 
+            SaveLoadService saveLoadService, 
+            PersistentProgressService progressService, 
+            SceneLoader sceneLoader
+            )
         {
             _staticData = staticData;
             _saveLoadService = saveLoadService;
@@ -73,7 +80,7 @@ namespace CodeBase.Infrastructure
         private void InitSkinData(PlayerProgress progress)
         {
             progress.SkinData.purchasedSkins = new List<int>(1) {0};
-            progress.SkinData.skinSpritePath = $"{AssetPath.FrogSprites}FrogBrown";
+            progress.SkinData.skinSpritePath = $"{AssetPath.FrogSprites}{DefaultSkinName}";
             progress.SkinData.currentSkinID = 0;
         }
 

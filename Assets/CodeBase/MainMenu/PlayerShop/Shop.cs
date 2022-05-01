@@ -11,12 +11,12 @@ namespace CodeBase.MainMenu.PlayerShop
     {
         private readonly ScrollUI _scrollUI;
         private readonly ShopWindow _shopWindow;
+        private readonly RewardedAdItem _adItem;
 
         private ShopItem[] _shopItems;
         private PlayerData _playerData;
         private SkinData _skinData;
         private int _selectedItemId;
-        private RewardedAdItem _adItem;
 
         public event Action ShopWindowClosed;
         
@@ -66,10 +66,10 @@ namespace CodeBase.MainMenu.PlayerShop
 
         private void TryBuyItem()
         {
-            if (_playerData.coins >= _shopItems[_selectedItemId].cost)
+            if (_playerData.coins >= _shopItems[_selectedItemId].Cost)
             {
                 _skinData.purchasedSkins.Add(_selectedItemId);
-                _playerData.ReduceCoins(_shopItems[_selectedItemId].cost);
+                _playerData.ReduceCoins(_shopItems[_selectedItemId].Cost);
 
                 _shopWindow.ChangeButtonState();
 
@@ -81,7 +81,7 @@ namespace CodeBase.MainMenu.PlayerShop
         public void OpenWindow() => 
             _shopWindow.Open();
 
-        public void CloseWindow()
+        private void CloseWindow()
         {
             _shopWindow.Close();
             ShopWindowClosed?.Invoke();
