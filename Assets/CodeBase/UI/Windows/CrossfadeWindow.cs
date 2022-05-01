@@ -7,9 +7,9 @@ namespace CodeBase.UI.Windows
     public class CrossfadeWindow : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;
-        private const float _maxAlpha = 1f;
-        private const float _minAlpha = 0f;
-        private const float _fadeDuration = 0.5f;
+        private const float MaxAlpha = 1f;
+        private const float MinAlpha = 0f;
+        private const float FadeDuration = 0.5f;
 
         private void Awake() => 
             DontDestroyOnLoad(gameObject);
@@ -17,18 +17,18 @@ namespace CodeBase.UI.Windows
         public void Open(Action onCrossfadeEnded = null)
         {
             gameObject.SetActive(true);
-            _canvasGroup.alpha = _minAlpha;
+            _canvasGroup.alpha = MinAlpha;
             _canvasGroup.blocksRaycasts = true;
-            _canvasGroup.DOFade(_maxAlpha, _fadeDuration)
+            _canvasGroup.DOFade(MaxAlpha, FadeDuration)
                 .SetUpdate(true)
                 .OnComplete(() => onCrossfadeEnded?.Invoke());
         }
 
         public void Close(Action onCrossfadeEnded = null)
         {
-            _canvasGroup.alpha = _maxAlpha;
+            _canvasGroup.alpha = MaxAlpha;
             _canvasGroup.blocksRaycasts = false;
-            _canvasGroup.DOFade(_minAlpha, _fadeDuration)
+            _canvasGroup.DOFade(MinAlpha, FadeDuration)
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {

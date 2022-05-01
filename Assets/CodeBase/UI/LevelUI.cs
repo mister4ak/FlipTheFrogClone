@@ -1,20 +1,18 @@
 using System;
 using CodeBase.UI.Windows;
-using UnityEditor;
-using UnityEngine;
 using Zenject;
 
 namespace CodeBase.UI
 {
     public class LevelUI : IInitializable
     {
-        private CrossfadeWindow _crossfadeWindow;
-        private PauseWindow _pauseWindow;
-        private GameHud _gameHud;
-        private GameOverWindow _gameOverWindow;
-        private EndLevelWindow _endLevelWindow;
+        private readonly CrossfadeWindow _crossfadeWindow;
+        private readonly PauseWindow _pauseWindow;
+        private readonly GameHud _gameHud;
+        private readonly GameOverWindow _gameOverWindow;
+        private readonly EndLevelWindow _endLevelWindow;
+        private readonly TutorialWindow.Factory _tutorialFactory;
         private TutorialWindow _tutorialWindow;
-        private TutorialWindow.Factory _tutorialFactory;
 
         public event Action LevelRestart;
         public event Action NextLevel;
@@ -24,35 +22,33 @@ namespace CodeBase.UI
         
 
         [Inject]
-        private void Construct(
+        public LevelUI(
             CrossfadeWindow crossfadeWindow,
-            GameHud gameHud,
             PauseWindow pauseWindow,
+            GameHud gameHud,
             GameOverWindow gameOverWindow,
             EndLevelWindow endLevelWindow, 
             TutorialWindow.Factory tutorialFactory
         )
         {
-            _tutorialFactory = tutorialFactory;
             _crossfadeWindow = crossfadeWindow;
-            _gameHud = gameHud;
             _pauseWindow = pauseWindow;
+            _gameHud = gameHud;
             _gameOverWindow = gameOverWindow;
             _endLevelWindow = endLevelWindow;
+            _tutorialFactory = tutorialFactory;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             Subscribe();
-        }
 
         private void Subscribe()
         {
             _gameHud.PauseButtonClicked += OpenPauseScreen;
-            _pauseWindow.PlayButtonClicked += ClosePauseWindow;
+            _pauseWindow.CloseButtonClicked += ClosePauseWindow;
             _pauseWindow.MenuButtonClicked += LoadMenu;
-
-            _gameOverWindow.RestartButtonClicked += CloseGameOverWindow;
+            
+            _gameOverWindow.CloseButtonClicked += CloseGameOverWindow;
         }
 
         public void StartLevel()
@@ -72,7 +68,6 @@ namespace CodeBase.UI
         private void CloseGameOverWindow()
         {
             _crossfadeWindow.Open();
-            //_gameOverWindow.Close();
             LevelRestart?.Invoke();
         }
 
@@ -85,27 +80,22 @@ namespace CodeBase.UI
 
         private void ClosePauseWindow()
         {
-            //_pauseWindow.Close();
             _gameHud.ShowPauseButton();
             GameResumed?.Invoke();
         }
 
-        private void LoadMenu()
-        {
+        private void LoadMenu() => 
             _crossfadeWindow.Open(() => MenuClicked?.Invoke());
-            //_pauseWindow.Close();
-        }
 
         public void OpenEndLevelWindow()
         {
             _endLevelWindow.Open();
-            _endLevelWindow.EndLevelScreenClicked += CloseEndLevelWindow;
+            _endLevelWindow.CloseButtonClicked += CloseEndLevelWindow;
         }
 
         private void CloseEndLevelWindow()
         {
-            _endLevelWindow.EndLevelScreenClicked -= CloseEndLevelWindow;
-            //_endLevelWindow.Close();
+            _endLevelWindow.CloseButtonClicked -= CloseEndLevelWindow;
             _crossfadeWindow.Open(() => NextLevel?.Invoke());
         }
 

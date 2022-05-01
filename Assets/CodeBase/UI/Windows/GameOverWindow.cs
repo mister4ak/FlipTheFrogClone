@@ -1,21 +1,15 @@
-using System;
+using DG.Tweening;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows
 {
     public class GameOverWindow : WindowBase
     {
-        public event Action RestartButtonClicked;
-
-        protected override void SubscribeUpdates() => 
-            _closeButton.onClick.AddListener(OnRestartButtonClicked);
-
-        private void OnRestartButtonClicked()
-        { 
-            RestartButtonClicked?.Invoke();
-            gameObject.SetActive(false);
+        [SerializeField] private CanvasGroup _canvasGroup;
+        protected override void Initialize()
+        {
+            _canvasGroup.alpha = MinAlpha;
+            _canvasGroup.DOFade(MaxAlpha, FadeDuration);
         }
-
-        protected override void Cleanup() => 
-            _closeButton.onClick.RemoveListener(OnRestartButtonClicked);
     }
 }

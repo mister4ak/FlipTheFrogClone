@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 5255883410750424720}
   - component: {fileID: 5255883410750424726}
   - component: {fileID: 5255883410750424727}
+  - component: {fileID: 2087914754238881157}
   - component: {fileID: 5255883410750424724}
   m_Layer: 5
   m_Name: EndLevelWindow
@@ -774,6 +775,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2087914754238881157
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255883410750424721}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &5255883410750424724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,5 +799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c295914b235fc543939195ff51f515a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseButton: {fileID: 5255883409087893923}
+  _closeButton: {fileID: 5255883409087893923}
+  _canvasGroup: {fileID: 2087914754238881157}
   _currentLevelText: {fileID: 5255883409905057272}
