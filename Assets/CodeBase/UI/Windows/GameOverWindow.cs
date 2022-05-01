@@ -4,24 +4,40 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows
 {
-    public class GameOverWindow : MonoBehaviour
+    public class GameOverWindow : WindowBase
     {
-        [SerializeField] private Button _restartButton;
         public event Action RestartButtonClicked;
 
-        public void Open()
-        {
-            gameObject.SetActive(true);
-            _restartButton.onClick.AddListener(OnRestartButtonClicked);
-        }
+        protected override void SubscribeUpdates() => 
+            CloseButton.onClick.AddListener(OnRestartButtonClicked);
 
-        public void Close()
+        private void OnRestartButtonClicked()
         {
-            gameObject.SetActive(false);
-            _restartButton.onClick.RemoveListener(OnRestartButtonClicked);
-        }
-
-        private void OnRestartButtonClicked() => 
             RestartButtonClicked?.Invoke();
+            gameObject.SetActive(false);
+        }
+
+        protected override void Cleanup() => 
+            CloseButton.onClick.RemoveListener(OnRestartButtonClicked);
     }
+    // public class GameOverWindow : MonoBehaviour
+    // {
+    //     [SerializeField] private Button _restartButton;
+    //     public event Action RestartButtonClicked;
+    //
+    //     public void Open()
+    //     {
+    //         gameObject.SetActive(true);
+    //         _restartButton.onClick.AddListener(OnRestartButtonClicked);
+    //     }
+    //
+    //     public void Close()
+    //     {
+    //         gameObject.SetActive(false);
+    //         _restartButton.onClick.RemoveListener(OnRestartButtonClicked);
+    //     }
+    //
+    //     private void OnRestartButtonClicked() => 
+    //         RestartButtonClicked?.Invoke();
+    // }
 }

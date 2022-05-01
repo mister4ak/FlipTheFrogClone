@@ -72,7 +72,7 @@ namespace CodeBase.UI
         private void CloseGameOverWindow()
         {
             _crossfadeWindow.Open();
-            _gameOverWindow.Close();
+            //_gameOverWindow.Close();
             LevelRestart?.Invoke();
         }
 

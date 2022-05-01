@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,13 +10,22 @@ namespace CodeBase.UI.Windows
         // protected IPersistentProgressService ProgressService;
         // protected PlayerProgress Progress => ProgressService.Progress;
         
-        public Button CloseButton;
+        [SerializeField] protected Button CloseButton;
 
         // public void Construct(IPersistentProgressService progressService) => 
         //     ProgressService = progressService;
 
-        private void Awake() => 
-            OnAwake();
+        public void Open()
+        {
+            gameObject.SetActive(true);
+            Initialize();
+            SubscribeUpdates();
+        }
+
+        // public virtual void Close()
+        // {
+        //     gameObject.SetActive(false);
+        // }
 
         private void Start()
         {
@@ -23,11 +33,10 @@ namespace CodeBase.UI.Windows
             SubscribeUpdates();
         }
 
-        private void OnDestroy() => 
+        private void OnDisable()
+        {
             Cleanup();
-
-        protected virtual void OnAwake() => 
-            CloseButton.onClick.AddListener(() => Destroy(gameObject));
+        }
 
         protected virtual void Initialize(){}
         protected virtual void SubscribeUpdates(){}
