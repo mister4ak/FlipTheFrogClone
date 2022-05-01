@@ -1,26 +1,38 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace CodeBase.UI.Windows
 {
-    public class PauseWindow : MonoBehaviour
+    public class PauseWindow : WindowBase
     {
-        [SerializeField] private Button _playButton;
         [SerializeField] private Button _mainMenuButton;
 
         public event Action PlayButtonClicked;
         public event Action MenuButtonClicked;
 
-        public void Open()
+        protected override void SubscribeUpdates()
         {
-            gameObject.SetActive(true);
-            _playButton.onClick.AddListener(() => PlayButtonClicked?.Invoke());
-            _mainMenuButton.onClick.AddListener(() => MenuButtonClicked?.Invoke());
+            _closeButton.onClick.AddListener(OnCloseButtonClicked);
+            _mainMenuButton.onClick.AddListener(OnMenuButtonClicked);
         }
 
-        public void Close() => 
+        private void OnMenuButtonClicked()
+        {
+            MenuButtonClicked?.Invoke();
             gameObject.SetActive(false);
+        }
+
+        private void OnCloseButtonClicked()
+        {
+            PlayButtonClicked?.Invoke();
+            gameObject.SetActive(false);
+        }
+
+        protected override void Cleanup()
+        {
+            _closeButton.onClick.RemoveListener(OnCloseButtonClicked);
+            _mainMenuButton.onClick.RemoveListener(OnMenuButtonClicked);
+        }
     }
 }

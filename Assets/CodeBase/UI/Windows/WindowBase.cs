@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ namespace CodeBase.UI.Windows
     public abstract class WindowBase : MonoBehaviour
     {
         [SerializeField] protected Button _closeButton;
+
+        public event Action CloseButtonClicked;
 
         public void Open()
         {

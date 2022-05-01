@@ -85,7 +85,7 @@ namespace CodeBase.UI
 
         private void ClosePauseWindow()
         {
-            _pauseWindow.Close();
+            //_pauseWindow.Close();
             _gameHud.ShowPauseButton();
             GameResumed?.Invoke();
         }
@@ -93,7 +93,7 @@ namespace CodeBase.UI
         private void LoadMenu()
         {
             _crossfadeWindow.Open(() => MenuClicked?.Invoke());
-            _pauseWindow.Close();
+            //_pauseWindow.Close();
         }
 
         public void OpenEndLevelWindow()
