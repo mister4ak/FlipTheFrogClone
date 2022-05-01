@@ -3,7 +3,7 @@ using CodeBase.UI.Windows;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
+namespace CodeBase.Infrastructure.Installers.LevelInstallers
 {
     public class LevelUIInstaller : MonoInstaller
     {

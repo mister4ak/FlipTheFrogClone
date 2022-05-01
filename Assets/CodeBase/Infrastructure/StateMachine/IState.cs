@@ -1,6 +1,4 @@
-using CodeBase.Data;
-
-namespace CodeBase.Infrastructure.StateFactory
+namespace CodeBase.Infrastructure.StateMachine
 {
     public interface IState : IExitableState
     {

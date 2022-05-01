@@ -8,18 +8,18 @@ namespace CodeBase.Infrastructure.Services
 {
     public class StaticDataService
     {
-        private const string _playerDataPath = "StaticData/Player/PlayerData";
-        private const string _tasksDataPath = "StaticData/Tasks";
+        private const string PlayerDataPath = "StaticData/Player/PlayerData";
+        private const string TasksDataPath = "StaticData/Tasks";
 
         private Dictionary<TaskId, Task> _levels;
         private PlayerStaticData _playerData;
 
         public void Load()
         {
-            _playerData = Resources.Load<PlayerStaticData>(_playerDataPath);
+            _playerData = Resources.Load<PlayerStaticData>(PlayerDataPath);
             
             _levels = Resources
-                .LoadAll<Task>(_tasksDataPath)
+                .LoadAll<Task>(TasksDataPath)
                 .ToDictionary(x => x.taskId, x => x);
         }
 

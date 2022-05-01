@@ -10,29 +10,30 @@ using CodeBase.UI;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
+namespace CodeBase.Infrastructure.StateMachine.States
 {
     public class EndLevelState : IState, IInitializable, ISavedProgress
     {
+        private const float MoveDuration = 1f;
+        
         private readonly CoroutineHelper _coroutineHelper;
         private readonly TimeService _timeService;
         private readonly LevelUI _levelUI;
         private readonly DeadZone _deadZone;
         private readonly CinemachineSwitcher _cinemachineSwitcher;
         private readonly FrogPlayer _frogPlayer;
+        private readonly FrogCameraFollower _frogCamera;
+        private readonly StaticDataService _staticData;
         private readonly Transform _belowMoonTransform;
         private readonly Transform _moonTransform;
-        private FrogCameraFollower _frogCamera;
         private PlayerProgress _progress;
-        private StaticDataService _staticData;
-        private const float MoveDuration = 1f;
 
         public event Action LevelEnded;
         
         public EndLevelState(
             CoroutineHelper coroutineHelper,
-            LevelUI levelUI,
             TimeService timeService,
+            LevelUI levelUI,
             DeadZone deadZone,
             CinemachineSwitcher cinemachineSwitcher,
             FrogPlayer frogPlayer,
@@ -42,29 +43,27 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             Transform moonTransform
         )
         {
-            _staticData = staticData;
-            _frogCamera = frogCamera;
-            _moonTransform = moonTransform;
-            _belowMoonTransform = belowMoonTransform;
-            _frogPlayer = frogPlayer;
-            _cinemachineSwitcher = cinemachineSwitcher;
-            _deadZone = deadZone;
-            _levelUI = levelUI;
-            _timeService = timeService;
             _coroutineHelper = coroutineHelper;
+            _timeService = timeService;
+            _levelUI = levelUI;
+            _deadZone = deadZone;
+            _cinemachineSwitcher = cinemachineSwitcher;
+            _frogPlayer = frogPlayer;
+            _frogCamera = frogCamera;
+            _staticData = staticData;
+            _belowMoonTransform = belowMoonTransform;
+            _moonTransform = moonTransform;
         }
 
         public void Initialize() => 
             _levelUI.NextLevel += MoveToNextLevel;
 
-        public void OnEnter()
-        {
+        public void OnEnter() => 
             _coroutineHelper.StartCoroutine(EndLevelProcess());
-        }
 
         private IEnumerator EndLevelProcess()
         {
-            _progress.PlayerData.currentLevelIndex++;
+            IncreaseCurrentLevelIndex();
 
             _deadZone.gameObject.SetActive(false);
             if (_timeService.IsTimeSlowDown == false)
@@ -79,6 +78,12 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             
             yield return new WaitForSeconds(1f);
             _levelUI.OpenEndLevelWindow();
+        }
+
+        private void IncreaseCurrentLevelIndex()
+        {
+            if (_progress.PlayerData.currentLevelIndex < _progress.PlayerData.levelsCount)
+                _progress.PlayerData.currentLevelIndex++;
         }
 
         private void MoveToNextLevel()

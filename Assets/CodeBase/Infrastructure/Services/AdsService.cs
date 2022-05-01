@@ -7,8 +7,8 @@ namespace CodeBase.Infrastructure.Services
 {
     public class AdsService : IUnityAdsListener, IInitializable
     {
-        private const string _androidGameId = "4731101";
-        private const string _rewardedVideoAndroidId = "Rewarded_Android";
+        private const string AndroidGameId = "4731101";
+        private const string RewardedVideoAndroidId = "Rewarded_Android";
 
         private string _rewardedVideoID;
         private string _gameId;
@@ -22,12 +22,12 @@ namespace CodeBase.Infrastructure.Services
             switch (Application.platform)
             {
                 case RuntimePlatform.Android:
-                    _rewardedVideoID = _rewardedVideoAndroidId;
-                    _gameId = _androidGameId;
+                    _rewardedVideoID = RewardedVideoAndroidId;
+                    _gameId = AndroidGameId;
                     break;
                 case RuntimePlatform.WindowsEditor:
-                    _rewardedVideoID = _rewardedVideoAndroidId;
-                    _gameId = _androidGameId;
+                    _rewardedVideoID = RewardedVideoAndroidId;
+                    _gameId = AndroidGameId;
                     break;
                 default:
                     Debug.Log("Unsupported platform for ADs");

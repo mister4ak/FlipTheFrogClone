@@ -10,7 +10,7 @@ using CodeBase.UI;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
+namespace CodeBase.Infrastructure.StateMachine.States
 {
     public class GameLoopState : IState, IInitializable, ISavedProgress
     {
@@ -26,6 +26,7 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         private FinishLine _finishLine;
         private PlayerData _playerData;
         private bool _isPaused;
+        
         public event Action GameOver;
         public event Action LevelCompleted;
         
@@ -38,12 +39,12 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             IInputService inputService
         )
         {
-            _inputService = inputService;
-            _sceneLoader = sceneLoader;
-            _timeService = timeService;
-            _levelCreator = levelCreator;
-            _levelUI = levelUI;
             _frogPlayer = frogPlayer;
+            _levelUI = levelUI;
+            _levelCreator = levelCreator;
+            _timeService = timeService;
+            _sceneLoader = sceneLoader;
+            _inputService = inputService;
         }
 
         public void Initialize()
@@ -55,26 +56,11 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             _levelUI.MenuClicked += LoadMenu;
         }
 
-        private void OnContinueGame()
-        {
-            _isPaused = false;
-            _timeService.Resume();
-        }
-
-        private void OnPausedGame()
-        {
-            _isPaused = true;
-            _timeService.Stop();
-        }
-
         public void OnEnter()
         {
             _levelUI.StartLevel();
             CheckTutorialCompleted();
-            
-            _inputService.Clicked += OnClicked;
-            _inputService.Hold += OnHold;
-            _inputService.Released += OnReleased;
+            SubscribeOnInput();
         }
 
         private void CheckTutorialCompleted()
@@ -83,6 +69,13 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
                 _levelUI.StartTutorial();
             else
                 _playerData.isTutorialCompleted = true;
+        }
+
+        private void SubscribeOnInput()
+        {
+            _inputService.Clicked += OnClicked;
+            _inputService.Hold += OnHold;
+            _inputService.Released += OnReleased;
         }
 
         private void OnClicked(Vector2 position)
@@ -114,9 +107,27 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         public void OnExit()
         {
             _frogPlayer.LevelEnded();
+            UnsubscribeOnInput();
+        }
+
+        private void UnsubscribeOnInput()
+        {
             _inputService.Clicked -= OnClicked;
             _inputService.Hold -= OnHold;
             _inputService.Released -= OnReleased;
+        }
+
+        private void OnLevelCreated(LevelData levelData)
+        {
+            _finishLine = levelData.finishLine;
+            _finishLine.OnFinish += FrogFinished;
+        }
+
+        private void FrogFinished()
+        {
+            LevelCompleted?.Invoke();
+            _finishLine.OnFinish -= FrogFinished;
+            _levelUI.FinishLevel();
         }
 
         private void FrogDied()
@@ -132,23 +143,22 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
                 _timeService.Resume();
         }
 
-        private void OnLevelCreated(LevelData levelData)
+        private void OnPausedGame()
         {
-            _finishLine = levelData.finishLine;
-            _finishLine.OnFinish += FrogFinished;
+            _isPaused = true;
+            _timeService.Stop();
+        }
+
+        private void OnContinueGame()
+        {
+            _isPaused = false;
+            _timeService.Resume();
         }
 
         private void LoadMenu()
         {
             _timeService.Resume();
             _sceneLoader.Load(MainMenuScene);
-        }
-
-        private void FrogFinished()
-        {
-            LevelCompleted?.Invoke();
-            _finishLine.OnFinish -= FrogFinished;
-            _levelUI.FinishLevel();
         }
 
         public void LoadProgress(PlayerProgress progress) => 

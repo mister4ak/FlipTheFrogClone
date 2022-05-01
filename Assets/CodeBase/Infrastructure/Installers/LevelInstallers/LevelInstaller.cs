@@ -4,13 +4,13 @@ using CodeBase.Frog;
 using CodeBase.GameCamera;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.Input;
-using CodeBase.Infrastructure.StateFactory.GameStateMachine;
+using CodeBase.Infrastructure.StateMachine;
+using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
+namespace CodeBase.Infrastructure.Installers.LevelInstallers
 {
     public class LevelInstaller : MonoInstaller
     {
@@ -24,17 +24,14 @@ namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
 
         public override void InstallBindings()
         {
-            BindInputService();
             BindTimeService();
-            BindVFX();
-            BindFrog();
             BindLevelCreator();
-            BindStates();
-            BindGame();
+            BindGameStateMachine();
+            BindParticleEmmiter();
+            BindFrog();
             BindCoinCollisionHandler();
-            BindFrogCamera();
+            BindCamera();
             BindDeadZone();
-            BindCinemachineSwitcher();
             BindTaskTracker();
         }
 
@@ -54,11 +51,11 @@ namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
         private void BindTimeService() => 
             Container.Bind<TimeService>().AsSingle();
 
-        private void BindCinemachineSwitcher() => 
-            Container.Bind<CinemachineSwitcher>().FromComponentOn(_frogCamera).AsSingle();
-
-        private void BindFrogCamera() => 
+        private void BindCamera()
+        {
             Container.Bind<FrogCameraFollower>().FromComponentOn(_frogCamera).AsSingle();
+            Container.Bind<CinemachineSwitcher>().FromComponentOn(_frogCamera).AsSingle();
+        }
 
         private void BindDeadZone() => 
             Container.Bind<DeadZone>().FromInstance(_deadZone).AsSingle();
@@ -66,7 +63,7 @@ namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
         private void BindCoinCollisionHandler() => 
             Container.Bind<CoinCollisionHandler>().AsSingle();
 
-        private void BindVFX()
+        private void BindParticleEmmiter()
         {
             ParticleEmmiter particleEmmiter = Container
                 .InstantiatePrefabForComponent<ParticleEmmiter>(_particleEmmiterPrefab);
@@ -74,23 +71,14 @@ namespace CodeBase.Infrastructure.Bootstrap.LevelInstallers
             Container.Bind<ParticleEmmiter>().FromInstance(particleEmmiter).AsSingle();
         }
 
-        private void BindInputService()
-        {
-            if (Application.isEditor)
-                Container.BindInterfacesAndSelfTo<MouseInput>().AsSingle();
-            else
-                Container.BindInterfacesAndSelfTo<TouchInput>().AsSingle();
-        }
-
-        private void BindGame() =>
-            Container.BindInterfacesAndSelfTo<Game>().AsSingle();
-
-        private void BindStates()
+        private void BindGameStateMachine()
         {
             Container.BindInterfacesAndSelfTo<LoadLevelState>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameLoopState>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameOverState>().AsSingle();
             Container.BindInterfacesAndSelfTo<EndLevelState>().AsSingle().WithArguments(_belowMoonTransform, _moonTransform);
+            
+            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
         }
         
         private void BindFrog()

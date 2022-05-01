@@ -4,20 +4,15 @@ namespace CodeBase.Infrastructure.Services
 {
     public class TimeService
     {
-        private float _slowDownScale = 0.1f;
-
+        private const float SlowDownScale = 0.1f;
         public bool IsTimeSlowDown { get; private set; }
-        public bool IsPaused { get; private set; }
 
-        public void Stop()
-        {
+        public void Stop() => 
             Time.timeScale = 0f;
-            IsPaused = true;
-        }
 
         public void SlowDown()
         {
-            Time.timeScale = _slowDownScale;
+            Time.timeScale = SlowDownScale;
             IsTimeSlowDown = true;
         }
 
@@ -25,7 +20,6 @@ namespace CodeBase.Infrastructure.Services
         {
             Time.timeScale = 1f;
             IsTimeSlowDown = false;
-            IsPaused = false;
         }
     }
 }

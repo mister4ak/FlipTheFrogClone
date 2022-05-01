@@ -7,7 +7,7 @@ using CodeBase.Obstacles;
 using CodeBase.Tasks;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
+namespace CodeBase.Infrastructure.StateMachine.States
 {
     public class LoadLevelState : IState, ISavedProgressReader
     {

@@ -5,16 +5,14 @@ namespace CodeBase.Infrastructure.Factories
 {
     public class LevelCreator
     {
-        private Level.Factory _levelFactory;
+        private readonly Level.Factory _levelFactory;
         private Level _currentLevel;
         private LevelData _currentLevelData;
 
         public event Action<LevelData> LevelCreated;
 
-        public LevelCreator(Level.Factory levelFactory)
-        {
+        public LevelCreator(Level.Factory levelFactory) => 
             _levelFactory = levelFactory;
-        }
 
         public void LoadCurrentLevel(int levelId)
         {

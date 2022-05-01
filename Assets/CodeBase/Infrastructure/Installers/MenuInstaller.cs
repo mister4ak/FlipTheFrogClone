@@ -5,7 +5,7 @@ using CodeBase.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Bootstrap
+namespace CodeBase.Infrastructure.Installers
 {
     public class MenuInstaller : MonoInstaller
     {
@@ -20,28 +20,23 @@ namespace CodeBase.Infrastructure.Bootstrap
 
         public override void InstallBindings()
         {
+            BindAdsService(); 
             BindMenuWindow();
-            BindAds(); 
             BindShop();
             BindSettings();
             BindTasks();
             BindMenu();
         }
 
-        private void BindAds()
-        {
+        private void BindAdsService() => 
             Container.BindInterfacesAndSelfTo<AdsService>().AsSingle();
-        }
 
         private void BindMenuWindow()
         {
             _menuWindow = Container
                 .InstantiatePrefabForComponent<MenuWindow>(_menuWindowPrefab, _uiRoot);
 
-            Container
-                .BindInterfacesAndSelfTo<MenuWindow>()
-                .FromInstance(_menuWindow)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<MenuWindow>().FromInstance(_menuWindow).AsSingle();
         }
 
         private void BindShop()
@@ -49,18 +44,13 @@ namespace CodeBase.Infrastructure.Bootstrap
             ShopWindow shopWindow = Container
                 .InstantiatePrefabForComponent<ShopWindow>(_shopWindowPrefab, _uiRoot);
 
-            Container
-                .BindInterfacesAndSelfTo<ShopWindow>()
-                .FromInstance(shopWindow)
-                .AsSingle();
-
-            Container
-                .BindInterfacesAndSelfTo<ScrollUI>()
+            Container.BindInterfacesAndSelfTo<ShopWindow>().FromInstance(shopWindow).AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<ScrollUI>()
                 .FromInstance(shopWindow.GetComponentInChildren<ScrollUI>())
                 .AsSingle();
-
-            Container
-                .Bind<RewardedAdItem>()
+            
+            Container.Bind<RewardedAdItem>()
                 .FromInstance(shopWindow.GetComponentInChildren<RewardedAdItem>())
                 .AsSingle();
 
@@ -72,31 +62,19 @@ namespace CodeBase.Infrastructure.Bootstrap
             MenuSettings menuSettings = Container
                 .InstantiatePrefabForComponent<MenuSettings>(_menuSettingsPrefab, _uiRoot);
 
-            Container
-                .BindInterfacesAndSelfTo<MenuSettings>()
-                .FromInstance(menuSettings)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<MenuSettings>().FromInstance(menuSettings).AsSingle();
         }
 
         private void BindTasks()
         {
-            Container.BindInterfacesAndSelfTo<TaskCreator>().AsSingle();
-            
             TaskUI taskUI = Container
                 .InstantiatePrefabForComponent<TaskUI>(_taskUIPrefab, _menuWindow.transform);
 
-            Container
-                .Bind<TaskUI>()
-                .FromInstance(taskUI)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<TaskCreator>().AsSingle();
+            Container.Bind<TaskUI>().FromInstance(taskUI).AsSingle();
         }
 
-        private void BindMenu()
-        {
-            Container
-                .BindInterfacesAndSelfTo<Menu>()
-                .AsSingle()
-                .NonLazy();
-        }
+        private void BindMenu() => 
+            Container.BindInterfacesAndSelfTo<Menu>().AsSingle().NonLazy();
     }
 }

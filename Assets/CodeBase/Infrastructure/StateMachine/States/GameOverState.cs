@@ -10,23 +10,22 @@ using CodeBase.UI;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
+namespace CodeBase.Infrastructure.StateMachine.States
 {
     public class GameOverState : IState, IInitializable
     {
-        private LevelUI _levelUI;
-        private FrogPlayer _frogPlayer;
-        private StaticDataService _staticData;
-        private FrogCameraFollower _frogCamera;
-        private DeadZone _deadZone;
-        private CoroutineHelper _coroutineHelper;
-        private LevelCreator _levelCreator;
+        private readonly LevelUI _levelUI;
+        private readonly FrogPlayer _frogPlayer;
+        private readonly FrogCameraFollower _frogCamera;
+        private readonly StaticDataService _staticData;
+        private readonly DeadZone _deadZone;
+        private readonly CoroutineHelper _coroutineHelper;
+        private readonly LevelCreator _levelCreator;
         private Coin[] _coins;
 
         public event Action LevelRestarted;
 
-        [Inject]
-        private void Construct(
+        public GameOverState(
             LevelUI levelUI,
             FrogPlayer frogPlayer,
             FrogCameraFollower frogCamera,
@@ -36,13 +35,13 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
             LevelCreator levelCreator
         )
         {
-            _levelCreator = levelCreator;
-            _coroutineHelper = coroutineHelper;
-            _deadZone = deadZone;
+            _levelUI = levelUI;
+            _frogPlayer = frogPlayer;
             _frogCamera = frogCamera;
             _staticData = staticData;
-            _frogPlayer = frogPlayer;
-            _levelUI = levelUI;
+            _deadZone = deadZone;
+            _coroutineHelper = coroutineHelper;
+            _levelCreator = levelCreator;
         }
 
         public void Initialize()
@@ -54,12 +53,10 @@ namespace CodeBase.Infrastructure.StateFactory.GameStateMachine
         private void OnLevelRestart() => 
             _coroutineHelper.StartCoroutine(RestartLevel());
 
-        public void OnEnter()
-        {
+        public void OnEnter() => 
             _levelUI.OpenGameOverWindow();
-        }
 
-        public void OnExit() { }
+        public void OnExit() {}
 
         private IEnumerator RestartLevel()
         {

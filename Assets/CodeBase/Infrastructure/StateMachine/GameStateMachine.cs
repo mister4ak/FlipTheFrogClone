@@ -1,15 +1,14 @@
 ﻿using System;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.StateFactory;
-using CodeBase.Infrastructure.StateFactory.GameStateMachine;
+using CodeBase.Infrastructure.StateMachine.States;
 using Zenject;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.StateMachine
 {
-    public class Game : IInitializable, IDisposable
+    public class GameStateMachine : IInitializable, IDisposable
     {
-        private StateMachine _stateMachine;
+        private BaseStateMachine _baseStateMachine;
         private readonly LoadLevelState _loadLevelState;
         private readonly GameLoopState _gameLoopState;
         private readonly GameOverState _gameOverState;
@@ -19,7 +18,7 @@ namespace CodeBase.Infrastructure
         private readonly PersistentProgressService _progressService;
         private readonly SaveLoadService _saveLoadService;
 
-        public Game(
+        public GameStateMachine(
             LoadLevelState loadLevelState,
             GameLoopState gameLoopState,
             GameOverState gameOverState,
@@ -42,7 +41,7 @@ namespace CodeBase.Infrastructure
 
         public void Initialize()
         {
-            _stateMachine = new StateMachine();
+            _baseStateMachine = new BaseStateMachine();
             _loadLevelState.StateLoaded += () => ChangeState(_gameLoopState);
 
             _gameLoopState.GameOver += () => ChangeState(_gameOverState);
@@ -56,7 +55,7 @@ namespace CodeBase.Infrastructure
         }
 
         private void ChangeState(IState state) => 
-            _stateMachine.SetState(state);
+            _baseStateMachine.SetState(state);
 
         private void RestartLevel()
         {
