@@ -106,7 +106,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
 
         public void OnExit()
         {
-            _frogPlayer.LevelEnded();
+            _frogPlayer.Disable();
             UnsubscribeOnInput();
         }
 

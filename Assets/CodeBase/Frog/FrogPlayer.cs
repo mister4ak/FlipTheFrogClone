@@ -36,7 +36,7 @@ namespace CodeBase.Frog
             _frogArrow.SetActiveState(false);
         }
 
-        public void LevelEnded() => 
+        public void Disable() => 
             _frogArrow.SetActiveState(false);
 
         public void Move(Vector2 from, Vector2 to, float duration)
