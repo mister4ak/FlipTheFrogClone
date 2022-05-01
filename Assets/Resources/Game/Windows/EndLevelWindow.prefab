@@ -786,5 +786,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c295914b235fc543939195ff51f515a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextLevelButton: {fileID: 5255883409087893923}
+  CloseButton: {fileID: 5255883409087893923}
   _currentLevelText: {fileID: 5255883409905057272}

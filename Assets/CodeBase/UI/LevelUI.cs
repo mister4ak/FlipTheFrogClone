@@ -105,7 +105,7 @@ namespace CodeBase.UI
         private void CloseEndLevelWindow()
         {
             _endLevelWindow.EndLevelScreenClicked -= CloseEndLevelWindow;
-            _endLevelWindow.Close();
+            //_endLevelWindow.Close();
             _crossfadeWindow.Open(() => NextLevel?.Invoke());
         }
 

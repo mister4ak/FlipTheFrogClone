@@ -63,8 +63,6 @@ namespace CodeBase.Infrastructure.StateMachine.States
 
         private IEnumerator EndLevelProcess()
         {
-            IncreaseCurrentLevelIndex();
-
             _deadZone.gameObject.SetActive(false);
             if (_timeService.IsTimeSlowDown == false)
                 _timeService.SlowDown();
@@ -78,6 +76,8 @@ namespace CodeBase.Infrastructure.StateMachine.States
             
             yield return new WaitForSeconds(1f);
             _levelUI.OpenEndLevelWindow();
+            
+            IncreaseCurrentLevelIndex();
         }
 
         private void IncreaseCurrentLevelIndex()
