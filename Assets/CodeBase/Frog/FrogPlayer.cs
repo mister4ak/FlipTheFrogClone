@@ -18,13 +18,14 @@ namespace CodeBase.Frog
         private string _skinPath;
         private bool _died;
 
+        public event Action Jumped;
         public event Action Died;
         public event Action<Vector2> ObstacleCollided;
 
         public void SetStartPosition(Vector2 position)
         {
-            _frogMover.SetStartPosition(position);
             _frogArrow.SetStartPosition(position);
+            _frogMover.SetStartPosition(position);
         }
 
         public void SetHoldPosition(Vector2 position) => 
@@ -32,8 +33,9 @@ namespace CodeBase.Frog
 
         public void SetReleasedPosition(Vector2 position)
         {
-            _frogMover.SetReleasedPosition(position);
             _frogArrow.SetActiveState(false);
+            _frogMover.SetReleasedPosition(position);
+            Jumped?.Invoke();
         }
 
         public void Disable() => 

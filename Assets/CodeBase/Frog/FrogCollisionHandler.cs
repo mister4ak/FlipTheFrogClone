@@ -22,11 +22,18 @@ namespace CodeBase.Frog
         public void Initialize()
         {
             _frogPlayer.Died += OnDied;
+            _frogPlayer.Jumped += OnJumped;
             _frogPlayer.ObstacleCollided += OnObstacleCollided;
         }
-        
+
         private void OnDied() =>
             _particleEmmiter.Play(Particle.Death, _frogPlayer.transform.position);
+
+        private void OnJumped()
+        {
+            _particleEmmiter.Play(Particle.Jump, _frogPlayer.transform.position);
+            _audioPlayer.Jump();
+        }
 
         private void OnObstacleCollided(Vector2 collisionPoint)
         {

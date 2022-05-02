@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Audio;
 using CodeBase.Infrastructure.Services;
 using CodeBase.StaticData;
 using DG.Tweening;
@@ -17,8 +15,6 @@ namespace CodeBase.Frog
         [SerializeField] private Rigidbody2D _frogRigidbody;
         [SerializeField] private LayerMask _tutorialLayer;
         private StaticDataService _staticData;
-        private ParticleEmmiter _particleEmmiter;
-        private AudioPlayer _audioPlayer;
         private PointerEventData _eventData;
         private List<RaycastResult> _raycastResults;
         
@@ -26,18 +22,10 @@ namespace CodeBase.Frog
         private Vector2 _releasedPosition;
         private float _maxDragDistance;
         private float _forceLaunch;
-        public event Action Jumped;
 
         [Inject]
-        private void Construct(
-            StaticDataService staticData,
-            ParticleEmmiter particleEmmiter,
-            AudioPlayer audioPlayer)
-        {
-            _audioPlayer = audioPlayer;
-            _particleEmmiter = particleEmmiter;
+        private void Construct(StaticDataService staticData) => 
             _staticData = staticData;
-        }
 
         private void Start()
         {
@@ -81,30 +69,30 @@ namespace CodeBase.Frog
 
         public void SetReleasedPosition(Vector2 releasedPosition)
         {
-            if (HitUI(releasedPosition))
+            if (HitUI())
                 return;
             _releasedPosition = releasedPosition;
             Launch(CalculateDirection(), CalculateForceLaunch());
         }
 
-        private bool HitUI(Vector2 clickedPosition)
+        private bool HitUI()
         {
-            _eventData.position = clickedPosition;
+            _eventData.position = _clickedPosition;
             EventSystem.current.RaycastAll(_eventData, _raycastResults);
             
-            if (_raycastResults.Any(raycastResult => _tutorialLayer.value == 1 << raycastResult.gameObject.layer))
+            if (HitNotTutorialLayer())
                 return false;
 
             return _raycastResults.Count > 0;
         }
 
+        private bool HitNotTutorialLayer() => 
+            _raycastResults.Any(raycastResult => _tutorialLayer.value == 1 << raycastResult.gameObject.layer);
+
         private void Launch(Vector2 direction, float forceLaunch)
         {
             ResetVelocity();
             _frogRigidbody.AddForce(direction * forceLaunch, ForceMode2D.Impulse);
-            PlayParticleEffect();
-            PlaySoundEffect();
-            Jumped?.Invoke();
         }
 
         private Vector2 CalculateDirection() => 
@@ -117,11 +105,5 @@ namespace CodeBase.Frog
                 return _forceLaunch;
             return _forceLaunch * (dragDistance / _maxDragDistance);
         }
-
-        private void PlayParticleEffect() => 
-            _particleEmmiter.Play(Particle.Jump, transform.position);
-
-        private void PlaySoundEffect() => 
-            _audioPlayer.Jump();
     }
 }

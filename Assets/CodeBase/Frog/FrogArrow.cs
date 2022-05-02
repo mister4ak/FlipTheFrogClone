@@ -26,16 +26,18 @@ namespace CodeBase.Frog
             SetActiveState(false);
         }
 
-        public void SetStartPosition(Vector2 position) => 
-            _arrowStartPosition = position;
-
         private void SetZeroPosition() => 
             _arrowLine.SetPosition(0, Vector2.zero);
 
+        public void SetStartPosition(Vector2 position)
+        {
+            _arrowStartPosition = position;
+            _arrowLine.SetPosition(1, _arrowStartPosition);
+            SetActiveState(true);
+        }
+
         public void SetHoldArrowPosition(Vector2 holdPosition)
         {
-            SetActiveState(true);
-
             float dragDistance = Vector2.Distance(_arrowStartPosition, holdPosition);
             if (dragDistance > _maxDragDistance)
                 SetArrowlineMaxlength(holdPosition);
@@ -73,10 +75,7 @@ namespace CodeBase.Frog
                                                (Mathf.Atan2(_arrowStartPosition.y - holdPosition.y,
                                                    _arrowStartPosition.x - holdPosition.x) * Mathf.Rad2Deg);
 
-        public void SetActiveState(bool state)
-        {
-            if (_arrowLine.gameObject.activeSelf != state)
-                _arrowLine.gameObject.SetActive(state);
-        }
+        public void SetActiveState(bool state) => 
+            _arrowLine.gameObject.SetActive(state);
     }
 }

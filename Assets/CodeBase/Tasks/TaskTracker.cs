@@ -12,7 +12,7 @@ namespace CodeBase.Tasks
     public class TaskTracker : ISavedProgress
     {
         private readonly StaticDataService _staticDataService;
-        private readonly FrogMover _frogMover;
+        private readonly FrogPlayer _frogPlayer;
         private readonly LevelCreator _levelCreator;
         
         private Task _currentTask;
@@ -28,11 +28,11 @@ namespace CodeBase.Tasks
 
         public TaskTracker(
             StaticDataService staticDataService,
-            FrogMover frogMover,
+            FrogPlayer frogPlayer,
             LevelCreator levelCreator)
         {
             _staticDataService = staticDataService;
-            _frogMover = frogMover;
+            _frogPlayer = frogPlayer;
             _levelCreator = levelCreator;
         }
 
@@ -77,7 +77,7 @@ namespace CodeBase.Tasks
         }
 
         private void Jump() => 
-            _frogMover.Jumped += TaskProgressed;
+            _frogPlayer.Jumped += TaskProgressed;
 
         private void TaskProgressed()
         {
@@ -120,7 +120,7 @@ namespace CodeBase.Tasks
             _finishLine.OnFinish -= TaskProgressed;
 
         private void UnsubscribeJump() => 
-            _frogMover.Jumped -= TaskProgressed;
+            _frogPlayer.Jumped -= TaskProgressed;
 
         public void LoadProgress(PlayerProgress progress)
         {
