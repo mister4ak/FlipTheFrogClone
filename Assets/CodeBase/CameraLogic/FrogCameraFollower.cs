@@ -3,7 +3,7 @@ using CodeBase.Frog;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.GameCamera
+namespace CodeBase.CameraLogic
 {
     public class FrogCameraFollower : MonoBehaviour
     {

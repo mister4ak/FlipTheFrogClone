@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CodeBase
+namespace CodeBase.Environment
 {
     public class Trampoline : MonoBehaviour
     {

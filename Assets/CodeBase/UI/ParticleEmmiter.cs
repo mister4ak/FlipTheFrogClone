@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeBase
+namespace CodeBase.UI
 {
     public enum Particle{
         Death,

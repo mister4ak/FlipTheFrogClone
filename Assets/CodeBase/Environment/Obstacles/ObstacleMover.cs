@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace CodeBase.Obstacles
+namespace CodeBase.Environment.Obstacles
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class ObstacleMover : MonoBehaviour

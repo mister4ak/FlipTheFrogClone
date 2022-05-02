@@ -20,10 +20,8 @@ namespace CodeBase.UI.Windows.Menu
         private PlayerSettings _settingsData;
 
         [Inject]
-        private void Construct(AudioPlayer audioPlayer)
-        {
+        private void Construct(AudioPlayer audioPlayer) => 
             _audioPlayer = audioPlayer;
-        }
 
         protected override void Initialize()
         {

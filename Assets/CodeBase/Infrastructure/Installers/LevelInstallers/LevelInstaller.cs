@@ -1,12 +1,13 @@
-﻿using CodeBase.Coins;
+﻿using CodeBase.CameraLogic;
+using CodeBase.Coins;
 using CodeBase.Colliders;
 using CodeBase.Frog;
-using CodeBase.GameCamera;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.StateMachine;
 using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Tasks;
+using CodeBase.UI;
 using UnityEngine;
 using Zenject;
 

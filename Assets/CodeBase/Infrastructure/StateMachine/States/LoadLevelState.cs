@@ -1,9 +1,9 @@
 ﻿using System;
 using CodeBase.Coins;
 using CodeBase.Data;
+using CodeBase.Environment.Obstacles;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Obstacles;
 using CodeBase.Tasks;
 using UnityEngine;
 

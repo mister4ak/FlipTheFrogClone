@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using CodeBase.CameraLogic;
 using CodeBase.Colliders;
 using CodeBase.Data;
 using CodeBase.Frog;
-using CodeBase.GameCamera;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI;

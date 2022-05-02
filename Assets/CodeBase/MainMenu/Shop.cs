@@ -83,12 +83,9 @@ namespace CodeBase.MainMenu
         public void OpenWindow() => 
             _shopWindow.Open();
 
-        private void CloseWindow()
-        {
-            //_shopWindow.Close();
+        private void CloseWindow() => 
             ShopWindowClosed?.Invoke();
-        }
-        
+
         public void LoadProgress(PlayerProgress progress)
         {
             _playerData = progress.PlayerData;

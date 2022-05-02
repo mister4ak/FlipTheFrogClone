@@ -1,20 +1,16 @@
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Windows.Game
 {
-    public class EndLevelWindow : BaseWindow
+    public class EndLevelWindow : BaseWindow, ISavedProgressReader
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TMP_Text _currentLevelText;
-        private PersistentProgressService _progressService;
-
-        [Inject]
-        private void Construct(PersistentProgressService progressService) => 
-            _progressService = progressService;
+        private int _currentLevelIndex;
 
         protected override void Initialize()
         {
@@ -24,6 +20,9 @@ namespace CodeBase.UI.Windows.Game
         }
 
         private void SetCompletedLevelText() => 
-            _currentLevelText.text = _progressService.Progress.PlayerData.currentLevelIndex.ToString();
+            _currentLevelText.text = _currentLevelIndex.ToString();
+
+        public void LoadProgress(PlayerProgress progress) => 
+            _currentLevelIndex = progress.PlayerData.currentLevelIndex;
     }
 }

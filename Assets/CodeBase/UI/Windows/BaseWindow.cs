@@ -1,5 +1,4 @@
 using System;
-using CodeBase.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 

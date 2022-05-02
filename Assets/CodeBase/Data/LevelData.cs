@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Coins;
 using CodeBase.Colliders;
-using CodeBase.Obstacles;
+using CodeBase.Environment.Obstacles;
 
 namespace CodeBase.Data
 {

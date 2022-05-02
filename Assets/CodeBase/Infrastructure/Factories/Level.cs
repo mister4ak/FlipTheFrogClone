@@ -2,8 +2,8 @@
 using CodeBase.Coins;
 using CodeBase.Colliders;
 using CodeBase.Data;
+using CodeBase.Environment.Obstacles;
 using CodeBase.Infrastructure.Services;
-using CodeBase.Obstacles;
 using UnityEngine;
 using Zenject;
 

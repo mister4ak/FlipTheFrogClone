@@ -1,9 +1,9 @@
 using System;
 using CodeBase.Colliders;
 using CodeBase.Data;
+using CodeBase.Environment;
+using CodeBase.Environment.Obstacles;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Obstacles;
-using CodeBase.Spikes;
 using UnityEngine;
 
 namespace CodeBase.Frog

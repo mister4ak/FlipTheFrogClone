@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Tasks;
@@ -51,11 +52,9 @@ namespace CodeBase.MainMenu
         {
             Subscribe();
             InformProgressReaders();
-
-            //_menuWindow.Initialize();
+            
             _menuWindow.Open();
             _shop.Initialize();
-            //_settingsWindow.Initialize();
             _taskCreator.Initialize();
 
             _crossfadeWindow.Close();
@@ -65,11 +64,11 @@ namespace CodeBase.MainMenu
         {
             _menuWindow.PlayClicked += OnPlayClicked;
             _menuWindow.ShopClicked += OnShopClicked;
+            _shop.ShopWindowClosed += OnShopClosed;
             _menuWindow.SettingsClicked += OnSettingsClicked;
-            _shop.ShopWindowClosed += () => _menuWindow.Open();
             _settingsWindow.CloseButtonClicked += OnSettingsClosed;
         }
-        
+
         private void InformProgressReaders()
         {
             foreach (ISavedProgressReader progressReader in _progressReaders)
@@ -79,23 +78,17 @@ namespace CodeBase.MainMenu
         private void OnPlayClicked() => 
             _crossfadeWindow.Open(() => _sceneLoader.Load(GameSceneName));
 
-        private void OnShopClicked()
-        {
-            //_menuWindow.Close();
+        private void OnShopClicked() => 
             _shop.OpenWindow();
-        }
 
-        private void OnSettingsClicked()
-        {
-            //_menuWindow.Close();
-            _settingsWindow.Open();
-        }
-
-        private void OnSettingsClosed()
-        {
-            //_settingsWindow.CloseButtonClicked();
+        private void OnShopClosed() => 
             _menuWindow.Open();
-        }
+
+        private void OnSettingsClicked() => 
+            _settingsWindow.Open();
+
+        private void OnSettingsClosed() => 
+            _menuWindow.Open();
 
         public void Dispose()
         {
@@ -103,8 +96,6 @@ namespace CodeBase.MainMenu
             Unsubscribe();
 
             _shop.Disable();
-            //_settingsWindow.Cleanup();
-
             DG.Tweening.DOTween.KillAll();
         }
 
@@ -116,6 +107,7 @@ namespace CodeBase.MainMenu
             _menuWindow.PlayClicked -= OnPlayClicked;
             _menuWindow.ShopClicked -= OnShopClicked;
             _menuWindow.SettingsClicked -= OnSettingsClicked;
+            _shop.ShopWindowClosed -= OnShopClosed;
             _settingsWindow.CloseButtonClicked -= OnSettingsClosed;
         }
     }

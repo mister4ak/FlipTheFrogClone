@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-namespace CodeBase.GameCamera
+namespace CodeBase.CameraLogic
 {
     public class CinemachineSwitcher : MonoBehaviour
     {

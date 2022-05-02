@@ -1,8 +1,6 @@
 ﻿using System;
-using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace CodeBase.UI
 {

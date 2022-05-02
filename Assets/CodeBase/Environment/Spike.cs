@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Spikes
+namespace CodeBase.Environment
 {
     public class Spike : MonoBehaviour
     {

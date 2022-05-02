@@ -1,10 +1,11 @@
 ﻿using System;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.StateMachine;
 using CodeBase.Infrastructure.StateMachine.States;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateMachine
+namespace CodeBase.Infrastructure
 {
     public class Game : IInitializable, IDisposable
     {

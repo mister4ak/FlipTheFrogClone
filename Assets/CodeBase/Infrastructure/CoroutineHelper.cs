@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CodeBase
+namespace CodeBase.Infrastructure
 {
     public class CoroutineHelper : MonoBehaviour
     {
