@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.UI.Windows.Game
 {
-    public class GameOverWindow : WindowBase
+    public class GameOverWindow : BaseWindow
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         protected override void Initialize()

@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Game
+namespace CodeBase.UI.Windows
 {
     public class CrossfadeWindow : MonoBehaviour
     {

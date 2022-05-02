@@ -533,5 +533,5 @@ MonoBehaviour:
   _uiRoot: {fileID: 56037291}
   _menuWindowPrefab: {fileID: 4758844702861153692, guid: 2688a6d5b29982a4fa8ad27e3d215162, type: 3}
   _shopWindowPrefab: {fileID: 7622981233807422891, guid: 98474214dd5bfb04e8927d0495a674f9, type: 3}
-  _menuSettingsPrefab: {fileID: 5052497051529591471, guid: 17a9ceaf1bcb6ae4daaf81c82b368c1d, type: 3}
+  _settingsWindowPrefab: {fileID: 5052497051529591471, guid: 17a9ceaf1bcb6ae4daaf81c82b368c1d, type: 3}
   _taskUIPrefab: {fileID: 54582153276658130, guid: fcb13d2e69a02df4c9b011841daaf3d2, type: 3}

@@ -8,7 +8,7 @@ using Zenject;
 
 namespace CodeBase.UI.Windows.Menu
 {
-    public class SettingsWindow : MonoBehaviour, ISavedProgress
+    public class SettingsWindow : BaseWindow, ISavedProgress
     {
         [SerializeField] private Button _soundButton;
         [SerializeField] private Button _vibrationButton;
@@ -18,7 +18,7 @@ namespace CodeBase.UI.Windows.Menu
         [SerializeField] private Sprite _vibrationOnImage;
         [SerializeField] private Sprite _vibrationOffImage;
     
-        [SerializeField] private Button _settingsCloseButton;
+        //[SerializeField] private Button _settingsCloseButton;
 
         private Image _soundImage;
         private Image _vibrationImage;
@@ -26,40 +26,34 @@ namespace CodeBase.UI.Windows.Menu
         private AudioPlayer _audioPlayer;
         private PlayerSettings _settingsData;
 
-        public event Action Closed;
+        //public event Action Closed;
 
         [Inject]
         private void Construct(AudioPlayer audioPlayer)
         {
             _audioPlayer = audioPlayer;
         }
-        
-        public void Initialize()
+
+        protected override void Initialize()
         {
-            Subscribe();
-            
             _soundImage = _soundButton.GetComponent<Image>();
             _vibrationImage = _vibrationButton.GetComponent<Image>();
             ChangeSoundImage(_settingsData.isAudioPaused);
             ChangeVibrationImage(_settingsData.isVibrationEnabled);
         }
 
-        private void Subscribe()
+        protected override void SubscribeUpdates()
         {
+            base.SubscribeUpdates();
             _soundButton.onClick.AddListener(OnSoundButtonClick);
             _vibrationButton.onClick.AddListener(OnVibrationButtonClick);
         }
 
-        public void Open()
+        protected override void Cleanup()
         {
-            gameObject.SetActive(true);
-            _settingsCloseButton.onClick.AddListener(CloseButtonClicked);
-        }
-
-        public void CloseButtonClicked()
-        {
-            Closed?.Invoke();
-            gameObject.SetActive(false);
+            base.Cleanup();
+            _soundButton.onClick.RemoveListener(OnSoundButtonClick);
+            _vibrationButton.onClick.RemoveListener(OnVibrationButtonClick);
         }
 
         private void OnSoundButtonClick()
@@ -82,12 +76,6 @@ namespace CodeBase.UI.Windows.Menu
         private void ChangeVibrationImage(bool isVibrationEnabled) => 
             _vibrationImage.sprite = isVibrationEnabled ? _vibrationOnImage : _vibrationOffImage;
 
-        public void Cleanup()
-        {
-            _soundButton.onClick.RemoveListener(OnSoundButtonClick);
-            _vibrationButton.onClick.RemoveListener(OnVibrationButtonClick);
-        }
-
         public void LoadProgress(PlayerProgress progress) => 
             _settingsData = progress.PlayerSettings;
 
@@ -97,4 +85,93 @@ namespace CodeBase.UI.Windows.Menu
             progress.PlayerSettings.isVibrationEnabled = _settingsData.isVibrationEnabled;
         }
     }
+    // public class SettingsWindow : MonoBehaviour, ISavedProgress
+    // {
+    //     [SerializeField] private Button _soundButton;
+    //     [SerializeField] private Button _vibrationButton;
+    //
+    //     [SerializeField] private Sprite _volumeOnImage;
+    //     [SerializeField] private Sprite _volumeOffImage;
+    //     [SerializeField] private Sprite _vibrationOnImage;
+    //     [SerializeField] private Sprite _vibrationOffImage;
+    //
+    //     [SerializeField] private Button _settingsCloseButton;
+    //
+    //     private Image _soundImage;
+    //     private Image _vibrationImage;
+    //
+    //     private AudioPlayer _audioPlayer;
+    //     private PlayerSettings _settingsData;
+    //
+    //     public event Action Closed;
+    //
+    //     [Inject]
+    //     private void Construct(AudioPlayer audioPlayer)
+    //     {
+    //         _audioPlayer = audioPlayer;
+    //     }
+    //     
+    //     public void Initialize()
+    //     {
+    //         Subscribe();
+    //         
+    //         _soundImage = _soundButton.GetComponent<Image>();
+    //         _vibrationImage = _vibrationButton.GetComponent<Image>();
+    //         ChangeSoundImage(_settingsData.isAudioPaused);
+    //         ChangeVibrationImage(_settingsData.isVibrationEnabled);
+    //     }
+    //
+    //     private void Subscribe()
+    //     {
+    //         _soundButton.onClick.AddListener(OnSoundButtonClick);
+    //         _vibrationButton.onClick.AddListener(OnVibrationButtonClick);
+    //     }
+    //
+    //     public void Open()
+    //     {
+    //         gameObject.SetActive(true);
+    //         _settingsCloseButton.onClick.AddListener(CloseButtonClicked);
+    //     }
+    //
+    //     public void CloseButtonClicked()
+    //     {
+    //         Closed?.Invoke();
+    //         gameObject.SetActive(false);
+    //     }
+    //
+    //     private void OnSoundButtonClick()
+    //     {
+    //         _settingsData.isAudioPaused = !_settingsData.isAudioPaused;
+    //         ChangeSoundImage(_settingsData.isAudioPaused);
+    //         _audioPlayer.ChangeAudioState(_settingsData.isAudioPaused);
+    //     }
+    //
+    //     private void OnVibrationButtonClick()
+    //     {
+    //         _settingsData.isVibrationEnabled = !_settingsData.isVibrationEnabled;
+    //         ChangeVibrationImage(_settingsData.isVibrationEnabled);
+    //         Vibrator.ChangeVibratorState(_settingsData.isVibrationEnabled);
+    //     }
+    //
+    //     private void ChangeSoundImage(bool isAudioPaused) => 
+    //         _soundImage.sprite = isAudioPaused ? _volumeOffImage : _volumeOnImage;
+    //
+    //     private void ChangeVibrationImage(bool isVibrationEnabled) => 
+    //         _vibrationImage.sprite = isVibrationEnabled ? _vibrationOnImage : _vibrationOffImage;
+    //
+    //     public void Cleanup()
+    //     {
+    //         _soundButton.onClick.RemoveListener(OnSoundButtonClick);
+    //         _vibrationButton.onClick.RemoveListener(OnVibrationButtonClick);
+    //     }
+    //
+    //     public void LoadProgress(PlayerProgress progress) => 
+    //         _settingsData = progress.PlayerSettings;
+    //
+    //     public void UpdateProgress(PlayerProgress progress)
+    //     {
+    //         progress.PlayerSettings.isAudioPaused = _settingsData.isAudioPaused;
+    //         progress.PlayerSettings.isVibrationEnabled = _settingsData.isVibrationEnabled;
+    //     }
+    // }
 }

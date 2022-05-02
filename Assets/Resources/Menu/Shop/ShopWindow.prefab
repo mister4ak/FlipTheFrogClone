@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38212ac45c806c4dae8bab7b22a22f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shopCloseButton: {fileID: 7622981233373879645}
+  _closeButton: {fileID: 7622981233373879645}
   _chosenSkinImage: {fileID: 7622981233580904881}
   _skinName: {fileID: 7622981233826013427}
   _skinCost: {fileID: 7622981234610513197}

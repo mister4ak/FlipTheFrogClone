@@ -3,7 +3,6 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Tasks;
 using CodeBase.UI.Windows;
-using CodeBase.UI.Windows.Game;
 using CodeBase.UI.Windows.Menu;
 using Zenject;
 
@@ -53,9 +52,10 @@ namespace CodeBase.MainMenu
             Subscribe();
             InformProgressReaders();
 
-            _menuWindow.Initialize();
+            //_menuWindow.Initialize();
+            _menuWindow.Open();
             _shop.Initialize();
-            _settingsWindow.Initialize();
+            //_settingsWindow.Initialize();
             _taskCreator.Initialize();
 
             _crossfadeWindow.Close();
@@ -67,7 +67,7 @@ namespace CodeBase.MainMenu
             _menuWindow.ShopClicked += OnShopClicked;
             _menuWindow.SettingsClicked += OnSettingsClicked;
             _shop.ShopWindowClosed += () => _menuWindow.Open();
-            _settingsWindow.Closed += OnSettingsWindowCloseClicked;
+            _settingsWindow.CloseButtonClicked += OnSettingsClosed;
         }
         
         private void InformProgressReaders()
@@ -81,19 +81,19 @@ namespace CodeBase.MainMenu
 
         private void OnShopClicked()
         {
-            _menuWindow.Close();
+            //_menuWindow.Close();
             _shop.OpenWindow();
         }
 
         private void OnSettingsClicked()
         {
-            _menuWindow.Close();
+            //_menuWindow.Close();
             _settingsWindow.Open();
         }
 
-        private void OnSettingsWindowCloseClicked()
+        private void OnSettingsClosed()
         {
-            _settingsWindow.CloseButtonClicked();
+            //_settingsWindow.CloseButtonClicked();
             _menuWindow.Open();
         }
 
@@ -103,7 +103,7 @@ namespace CodeBase.MainMenu
             Unsubscribe();
 
             _shop.Disable();
-            _settingsWindow.Cleanup();
+            //_settingsWindow.Cleanup();
 
             DG.Tweening.DOTween.KillAll();
         }
@@ -116,7 +116,7 @@ namespace CodeBase.MainMenu
             _menuWindow.PlayClicked -= OnPlayClicked;
             _menuWindow.ShopClicked -= OnShopClicked;
             _menuWindow.SettingsClicked -= OnSettingsClicked;
-            _settingsWindow.Closed -= OnSettingsWindowCloseClicked;
+            _settingsWindow.CloseButtonClicked -= OnSettingsClosed;
         }
     }
 }

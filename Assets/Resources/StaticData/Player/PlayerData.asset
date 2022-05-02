@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9555d698334eeda5fbf2c3440aa45a, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  ForceLaunch: 10
-  TrampolineForceLaunch: 20
-  MaxDragDistance: 100
-  StartPoint: {fileID: 3280701505324594925, guid: 67f31ca8e73cc8247816687851aac6b1, type: 3}
+  forceLaunch: 10
+  trampolineForceLaunch: 20
+  maxDragDistance: 100
+  startPoint: {fileID: 3280701505324594925, guid: 67f31ca8e73cc8247816687851aac6b1, type: 3}

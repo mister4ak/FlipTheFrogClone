@@ -1,10 +1,11 @@
 using System;
+using CodeBase.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows
 {
-    public abstract class WindowBase : MonoBehaviour
+    public abstract class BaseWindow : MonoBehaviour
     {
         [SerializeField] protected Button _closeButton;
         protected const float MaxAlpha = 1f;

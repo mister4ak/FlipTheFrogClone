@@ -91,13 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a492a2c687dd242b197fea95d2c93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeButton: {fileID: 5052497052832353100}
   _soundButton: {fileID: 5052497052150218812}
   _vibrationButton: {fileID: 5052497052221113808}
   _volumeOnImage: {fileID: 21300000, guid: 647e749e1f1f10441a4400720820f9c5, type: 3}
   _volumeOffImage: {fileID: 21300000, guid: de5a719301a38314e9ec7a28e9e820d2, type: 3}
   _vibrationOnImage: {fileID: 21300000, guid: f4f8d310b4137644a84e6dfec969af98, type: 3}
   _vibrationOffImage: {fileID: 21300000, guid: ba704e5f836185244accfe2a44896464, type: 3}
-  _settingsCloseButton: {fileID: 5052497052832353100}
 --- !u!1 &5052497052150218814
 GameObject:
   m_ObjectHideFlags: 0

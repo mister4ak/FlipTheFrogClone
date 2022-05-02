@@ -46,7 +46,7 @@ namespace CodeBase.MainMenu
             _scrollUI.ItemChanged += ChangeCurrentItemId;
             _shopWindow.ChooseSkinClicked += ChangeCurrentSkin;
             _shopWindow.BuySkinClicked += TryBuyItem;
-            _shopWindow.Closed += CloseWindow;
+            _shopWindow.CloseButtonClicked += CloseWindow;
         }
 
         public void Tick() => 
@@ -85,7 +85,7 @@ namespace CodeBase.MainMenu
 
         private void CloseWindow()
         {
-            _shopWindow.Close();
+            //_shopWindow.Close();
             ShopWindowClosed?.Invoke();
         }
         
@@ -106,7 +106,7 @@ namespace CodeBase.MainMenu
         {
             _adItem.Cleanup();
             _scrollUI.ItemChanged -= ChangeCurrentItemId;
-            _shopWindow.Closed -= CloseWindow;
+            _shopWindow.CloseButtonClicked -= CloseWindow;
             _shopWindow.BuySkinClicked -= TryBuyItem;
             _shopWindow.ChooseSkinClicked -= ChangeCurrentSkin;
         }

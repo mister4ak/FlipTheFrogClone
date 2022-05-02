@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Game
 {
-    public class PauseWindow : WindowBase
+    public class PauseWindow : BaseWindow
     {
         [SerializeField] private Button _mainMenuButton;
         

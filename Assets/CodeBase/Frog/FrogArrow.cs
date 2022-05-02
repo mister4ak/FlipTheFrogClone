@@ -23,7 +23,6 @@ namespace CodeBase.Frog
             _maxDragDistance = _staticData.PlayerData().maxDragDistance;
             _arrowLine.positionCount = 2;
             SetZeroPosition();
-
             SetActiveState(false);
         }
 
@@ -58,7 +57,7 @@ namespace CodeBase.Frog
                 (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance * dragDistance);
             _arrowhead.transform.localPosition = 
                 (_arrowStartPosition - holdPosition).normalized * _arrowLength / _maxDragDistance * dragDistance;
-            
+
             ChangeArrowheadAlpha(dragDistance);
         }
 
