@@ -2,6 +2,7 @@
 using CodeBase.Coins;
 using CodeBase.Colliders;
 using CodeBase.Data;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Obstacles;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,7 @@ namespace CodeBase.Infrastructure.Factories
         private const string LevelsPath = "Levels/";
         private readonly int _levelID;
         private GameObject _currentLevel;
+        //private StaticDataService _staticDataService;
 
         public Level(int levelID)
         {
@@ -31,6 +33,7 @@ namespace CodeBase.Infrastructure.Factories
         private void InstantiateLevel()
         {
             GameObject levelPrefab = Resources.Load<GameObject>($"{LevelsPath}{_levelID}");
+            //GameObject levelPrefab = Resources.Load<GameObject>($"{LevelsPath}{_staticDataService.LevelsData().levels[_levelID - 1]}");
             _currentLevel = Object.Instantiate(levelPrefab);
         }
 

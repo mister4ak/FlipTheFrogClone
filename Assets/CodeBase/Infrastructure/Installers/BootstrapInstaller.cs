@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI;
 using CodeBase.UI.Windows;
-using CodeBase.UI.Windows.Game;
 using UnityEngine;
 using Zenject;
 
@@ -37,10 +36,7 @@ namespace CodeBase.Infrastructure.Installers
 
         private void BindInputService()
         {
-            if (Application.isEditor)
-                Container.BindInterfacesAndSelfTo<MouseInput>().AsSingle();
-            else
-                Container.BindInterfacesAndSelfTo<TouchInput>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MouseInput>().AsSingle();
         }
 
         private void BindCoroutineHelper()

@@ -11,14 +11,14 @@ namespace CodeBase.Infrastructure.Services
         private const string PlayerDataPath = "StaticData/Player/PlayerData";
         private const string TasksDataPath = "StaticData/Tasks";
 
-        private Dictionary<TaskId, Task> _levels;
+        private Dictionary<TaskId, Task> _tasks;
         private PlayerStaticData _playerData;
 
         public void Load()
         {
             _playerData = Resources.Load<PlayerStaticData>(PlayerDataPath);
             
-            _levels = Resources
+            _tasks = Resources
                 .LoadAll<Task>(TasksDataPath)
                 .ToDictionary(x => x.taskId, x => x);
         }
@@ -27,9 +27,8 @@ namespace CodeBase.Infrastructure.Services
             _playerData;
 
         public Task ForTask(TaskId taskId) =>
-            _levels.TryGetValue(taskId, out Task taskData)
+            _tasks.TryGetValue(taskId, out Task taskData)
                 ? taskData
                 : null;
-
     }
 }

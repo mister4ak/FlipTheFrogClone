@@ -28,7 +28,6 @@ namespace CodeBase.Coins
         {
             PlayParticleEffects(coin);
             UpdateCoinsAmount(coin);
-            Vibrator.Vibrate(50);
         }
 
         private void PlayParticleEffects(Coin coin) => 

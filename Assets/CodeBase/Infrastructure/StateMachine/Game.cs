@@ -6,7 +6,7 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachine
 {
-    public class GameStateMachine : IInitializable, IDisposable
+    public class Game : IInitializable, IDisposable
     {
         private BaseStateMachine _baseStateMachine;
         private readonly LoadLevelState _loadLevelState;
@@ -18,7 +18,7 @@ namespace CodeBase.Infrastructure.StateMachine
         private readonly PersistentProgressService _progressService;
         private readonly SaveLoadService _saveLoadService;
 
-        public GameStateMachine(
+        public Game(
             LoadLevelState loadLevelState,
             GameLoopState gameLoopState,
             GameOverState gameOverState,

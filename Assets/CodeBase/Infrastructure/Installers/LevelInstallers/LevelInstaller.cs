@@ -78,7 +78,7 @@ namespace CodeBase.Infrastructure.Installers.LevelInstallers
             Container.BindInterfacesAndSelfTo<GameOverState>().AsSingle();
             Container.BindInterfacesAndSelfTo<EndLevelState>().AsSingle().WithArguments(_belowMoonTransform, _moonTransform);
             
-            Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Game>().AsSingle().NonLazy();
         }
         
         private void BindFrog()

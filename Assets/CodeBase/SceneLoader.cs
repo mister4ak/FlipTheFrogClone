@@ -10,10 +10,8 @@ namespace CodeBase
         private readonly CoroutineHelper _coroutineHelper;
         private AsyncOperation _asyncOperation;
 
-        public SceneLoader(CoroutineHelper coroutineHelper)
-        {
+        public SceneLoader(CoroutineHelper coroutineHelper) => 
             _coroutineHelper = coroutineHelper;
-        }
 
         public void Load(string sceneName, Action onLoaded = null)
         {
