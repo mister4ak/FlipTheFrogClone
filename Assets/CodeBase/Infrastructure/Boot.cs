@@ -38,10 +38,8 @@ namespace CodeBase.Infrastructure
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-
-            LoadProgressOrInitNew();
             LoadStaticData();
+            LoadProgressOrInitNew();
             _sceneLoader.Load(MainMenuScene);
         }
 
@@ -63,11 +61,8 @@ namespace CodeBase.Infrastructure
             return progress;
         }
 
-        private void InitSettingsData(PlayerProgress progress)
-        {
+        private void InitSettingsData(PlayerProgress progress) => 
             progress.PlayerSettings.isAudioPaused = true;
-            progress.PlayerSettings.isVibrationEnabled = true;
-        }
 
         private void InitTaskData(PlayerProgress progress)
         {
