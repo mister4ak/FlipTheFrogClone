@@ -1,7 +1,9 @@
 ﻿using CodeBase.Infrastructure.Services;
 using CodeBase.MainMenu;
-using CodeBase.MainMenu.PlayerShop;
 using CodeBase.Tasks;
+using CodeBase.UI.Menu;
+using CodeBase.UI.Menu.Shop;
+using CodeBase.UI.Windows.Menu;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +15,7 @@ namespace CodeBase.Infrastructure.Installers
 
         [SerializeField] private MenuWindow _menuWindowPrefab;
         [SerializeField] private ShopWindow _shopWindowPrefab;
-        [SerializeField] private MenuSettings _menuSettingsPrefab;
+        [SerializeField] private SettingsWindow _settingsWindowPrefab;
         [SerializeField] private TaskUI _taskUIPrefab;
 
         private MenuWindow _menuWindow;
@@ -59,10 +61,10 @@ namespace CodeBase.Infrastructure.Installers
 
         private void BindSettings()
         {
-            MenuSettings menuSettings = Container
-                .InstantiatePrefabForComponent<MenuSettings>(_menuSettingsPrefab, _uiRoot);
+            SettingsWindow settingsWindow = Container
+                .InstantiatePrefabForComponent<SettingsWindow>(_settingsWindowPrefab, _uiRoot);
 
-            Container.BindInterfacesAndSelfTo<MenuSettings>().FromInstance(menuSettings).AsSingle();
+            Container.BindInterfacesAndSelfTo<SettingsWindow>().FromInstance(settingsWindow).AsSingle();
         }
 
         private void BindTasks()

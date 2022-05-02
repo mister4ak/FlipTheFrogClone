@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows
+namespace CodeBase.UI.Windows.Game
 {
     public class PauseWindow : WindowBase
     {

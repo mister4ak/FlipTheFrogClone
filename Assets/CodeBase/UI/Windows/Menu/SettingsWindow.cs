@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CodeBase.MainMenu
+namespace CodeBase.UI.Windows.Menu
 {
-    public class MenuSettings : MonoBehaviour, ISavedProgress
+    public class SettingsWindow : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private Button _soundButton;
         [SerializeField] private Button _vibrationButton;

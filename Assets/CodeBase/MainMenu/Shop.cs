@@ -2,10 +2,12 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagment;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.UI.Menu.Shop;
+using CodeBase.UI.Windows.Menu;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CodeBase.MainMenu.PlayerShop
+namespace CodeBase.MainMenu
 {
     public class Shop: ITickable, ISavedProgress
     {

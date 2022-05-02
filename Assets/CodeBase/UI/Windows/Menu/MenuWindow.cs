@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.MainMenu
+namespace CodeBase.UI.Windows.Menu
 {
     public class MenuWindow : MonoBehaviour, ISavedProgressReader
     {

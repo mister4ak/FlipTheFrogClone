@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.MainMenu.PlayerShop
+namespace CodeBase.MainMenu
 {
     public class ShopItem : MonoBehaviour
     {

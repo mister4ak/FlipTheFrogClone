@@ -1,9 +1,10 @@
 using System;
+using CodeBase.MainMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace CodeBase.MainMenu.PlayerShop
+namespace CodeBase.UI.Menu.Shop
 {
     public class ScrollUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {

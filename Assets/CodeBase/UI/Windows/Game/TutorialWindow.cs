@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CodeBase.UI.Windows
+namespace CodeBase.UI.Windows.Game
 {
     public class TutorialWindow : MonoBehaviour
     {

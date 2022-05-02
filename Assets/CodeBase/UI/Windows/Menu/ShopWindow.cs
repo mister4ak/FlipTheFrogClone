@@ -1,12 +1,13 @@
 using System;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.MainMenu;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.MainMenu.PlayerShop
+namespace CodeBase.UI.Windows.Menu
 {
     public class ShopWindow : MonoBehaviour, ISavedProgressReader
     {

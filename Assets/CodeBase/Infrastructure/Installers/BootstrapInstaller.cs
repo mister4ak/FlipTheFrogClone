@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Game;
 using UnityEngine;
 using Zenject;
 

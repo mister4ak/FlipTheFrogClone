@@ -1,5 +1,6 @@
 using System;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Game;
 using Zenject;
 
 namespace CodeBase.UI

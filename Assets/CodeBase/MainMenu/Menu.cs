@@ -1,9 +1,10 @@
 ﻿using System;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.MainMenu.PlayerShop;
 using CodeBase.Tasks;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Game;
+using CodeBase.UI.Windows.Menu;
 using Zenject;
 
 namespace CodeBase.MainMenu
@@ -14,7 +15,7 @@ namespace CodeBase.MainMenu
         private readonly CrossfadeWindow _crossfadeWindow;
         private readonly MenuWindow _menuWindow;
         private readonly Shop _shop;
-        private readonly MenuSettings _menuSettings;
+        private readonly SettingsWindow _settingsWindow;
         private readonly TaskCreator _taskCreator;
         private readonly SceneLoader _sceneLoader;
         private readonly PersistentProgressService _progressService;
@@ -26,7 +27,7 @@ namespace CodeBase.MainMenu
             CrossfadeWindow crossfadeWindow, 
             MenuWindow menuWindow, 
             Shop shop, 
-            MenuSettings menuSettings, 
+            SettingsWindow settingsWindow, 
             TaskCreator taskCreator,
             SceneLoader sceneLoader, 
             PersistentProgressService progressService ,
@@ -38,7 +39,7 @@ namespace CodeBase.MainMenu
             _crossfadeWindow = crossfadeWindow;
             _menuWindow = menuWindow;
             _shop = shop;
-            _menuSettings = menuSettings;
+            _settingsWindow = settingsWindow;
             _taskCreator = taskCreator;
             _sceneLoader = sceneLoader;
             _progressService = progressService;
@@ -54,7 +55,7 @@ namespace CodeBase.MainMenu
 
             _menuWindow.Initialize();
             _shop.Initialize();
-            _menuSettings.Initialize();
+            _settingsWindow.Initialize();
             _taskCreator.Initialize();
 
             _crossfadeWindow.Close();
@@ -66,7 +67,7 @@ namespace CodeBase.MainMenu
             _menuWindow.ShopClicked += OnShopClicked;
             _menuWindow.SettingsClicked += OnSettingsClicked;
             _shop.ShopWindowClosed += () => _menuWindow.Open();
-            _menuSettings.Closed += OnMenuSettingsCloseClicked;
+            _settingsWindow.Closed += OnSettingsWindowCloseClicked;
         }
         
         private void InformProgressReaders()
@@ -87,12 +88,12 @@ namespace CodeBase.MainMenu
         private void OnSettingsClicked()
         {
             _menuWindow.Close();
-            _menuSettings.Open();
+            _settingsWindow.Open();
         }
 
-        private void OnMenuSettingsCloseClicked()
+        private void OnSettingsWindowCloseClicked()
         {
-            _menuSettings.CloseButtonClicked();
+            _settingsWindow.CloseButtonClicked();
             _menuWindow.Open();
         }
 
@@ -102,7 +103,7 @@ namespace CodeBase.MainMenu
             Unsubscribe();
 
             _shop.Disable();
-            _menuSettings.Cleanup();
+            _settingsWindow.Cleanup();
 
             DG.Tweening.DOTween.KillAll();
         }
@@ -115,7 +116,7 @@ namespace CodeBase.MainMenu
             _menuWindow.PlayClicked -= OnPlayClicked;
             _menuWindow.ShopClicked -= OnShopClicked;
             _menuWindow.SettingsClicked -= OnSettingsClicked;
-            _menuSettings.Closed -= OnMenuSettingsCloseClicked;
+            _settingsWindow.Closed -= OnSettingsWindowCloseClicked;
         }
     }
 }

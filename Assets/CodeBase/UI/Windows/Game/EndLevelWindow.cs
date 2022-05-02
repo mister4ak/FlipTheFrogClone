@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.UI.Windows
+namespace CodeBase.UI.Windows.Game
 {
     public class EndLevelWindow : WindowBase
     {

@@ -1,10 +1,11 @@
 using System;
+using CodeBase.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.Tasks
+namespace CodeBase.UI.Menu
 {
     public class TaskUI: MonoBehaviour
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CodeBase.MainMenu.PlayerShop
+namespace CodeBase.UI.Menu.Shop
 {
     public class RewardedAdItem : MonoBehaviour
     {

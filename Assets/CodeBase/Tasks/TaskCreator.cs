@@ -2,6 +2,7 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.UI.Menu;
 using Random = System.Random;
 
 namespace CodeBase.Tasks
