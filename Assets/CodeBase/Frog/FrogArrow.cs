@@ -33,6 +33,7 @@ namespace CodeBase.Frog
         {
             _arrowStartPosition = position;
             _arrowLine.SetPosition(1, _arrowStartPosition);
+            _arrowhead.transform.localPosition = Vector3.zero;
             SetActiveState(true);
         }
 

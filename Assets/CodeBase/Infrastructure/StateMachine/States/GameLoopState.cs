@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Colliders;
 using CodeBase.Data;
 using CodeBase.Frog;
@@ -8,6 +10,7 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachine.States
@@ -15,18 +18,24 @@ namespace CodeBase.Infrastructure.StateMachine.States
     public class GameLoopState : IState, IInitializable, ISavedProgress
     {
         private const string MainMenuScene = "MainMenu";
+        private const string TutorialLayerName = "TutorialWindow";
         private const int LevelsRequiredForTraining = 3;
-        
+
         private readonly FrogPlayer _frogPlayer;
         private readonly LevelUI _levelUI;
         private readonly LevelCreator _levelCreator;
         private readonly TimeService _timeService;
         private readonly SceneLoader _sceneLoader;
         private readonly IInputService _inputService;
+        
         private FinishLine _finishLine;
         private PlayerData _playerData;
-        private bool _isPaused;
+        private PointerEventData _eventData;
+        private List<RaycastResult> _raycastResults;
         
+        private bool _isPaused;
+        private int _tutorialLayer;
+
         public event Action GameOver;
         public event Action LevelCompleted;
         
@@ -54,6 +63,15 @@ namespace CodeBase.Infrastructure.StateMachine.States
             _levelUI.GamePaused += OnPausedGame;
             _levelUI.GameResumed += OnContinueGame;
             _levelUI.MenuClicked += LoadMenu;
+            
+            InitEventSystemForUIHit();
+        }
+
+        private void InitEventSystemForUIHit()
+        {
+            _eventData = new PointerEventData(EventSystem.current);
+            _raycastResults = new List<RaycastResult>();
+            _tutorialLayer = LayerMask.NameToLayer(TutorialLayerName);
         }
 
         public void OnEnter()
@@ -99,10 +117,27 @@ namespace CodeBase.Infrastructure.StateMachine.States
         {
             if (_isPaused)
                 return;
-            
+
+            if (HitUI(position))
+                return;
+
             _frogPlayer.SetReleasedPosition(position);
             _timeService.Resume();
         }
+
+        private bool HitUI(Vector2 position)
+        {
+            _eventData.position = position;
+            EventSystem.current.RaycastAll(_eventData, _raycastResults);
+            
+            if (HitNotTutorialLayer())
+                return false;
+
+            return _raycastResults.Count > 0;
+        }
+
+        private bool HitNotTutorialLayer() => 
+            _raycastResults.Any(raycastResult => _tutorialLayer == 1 << raycastResult.gameObject.layer);
 
         public void OnExit()
         {
