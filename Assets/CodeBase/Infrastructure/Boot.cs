@@ -12,7 +12,7 @@ namespace CodeBase.Infrastructure
     public class Boot : MonoBehaviour
     {
         private const string MainMenuScene = "MainMenu";
-        private const string DefaultSkinName = "FrogBrown";
+        private const string DefaultSkinName = "FrogOrange";
         
         private SceneLoader _sceneLoader;
         private PersistentProgressService _progressService;
@@ -35,6 +35,7 @@ namespace CodeBase.Infrastructure
 
         private void Awake()
         {
+            PlayerPrefs.DeleteAll();
             LoadStaticData();
             LoadProgressOrInitNew();
             _sceneLoader.Load(MainMenuScene);

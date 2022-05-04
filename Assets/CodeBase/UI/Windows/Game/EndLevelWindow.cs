@@ -20,7 +20,7 @@ namespace CodeBase.UI.Windows.Game
         }
 
         private void SetCompletedLevelText() => 
-            _currentLevelText.text = _currentLevelIndex.ToString();
+            _currentLevelText.text = $"Level {_currentLevelIndex.ToString()} passed";
 
         public void LoadProgress(PlayerProgress progress) => 
             _currentLevelIndex = progress.PlayerData.currentLevelIndex;

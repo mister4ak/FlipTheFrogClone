@@ -13,7 +13,7 @@ namespace CodeBase.UI.Windows.Menu
     public class ShopWindow : BaseWindow, ISavedProgressReader
     {
         private const string BuyedSkinText = "Choose";
-        private const float NotEnoughCoinsTextOffsetY = 37f;
+        private const float NotEnoughCoinsTextOffsetY = 50f;
 
         [SerializeField] private GameObject _chosenSkinImage;
         [SerializeField] private TMP_Text _skinName;
