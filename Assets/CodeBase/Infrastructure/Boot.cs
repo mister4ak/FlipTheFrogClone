@@ -35,7 +35,6 @@ namespace CodeBase.Infrastructure
 
         private void Awake()
         {
-            PlayerPrefs.DeleteAll();
             LoadStaticData();
             LoadProgressOrInitNew();
             _sceneLoader.Load(MainMenuScene);
