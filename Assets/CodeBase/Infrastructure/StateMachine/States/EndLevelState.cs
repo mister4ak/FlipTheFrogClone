@@ -88,7 +88,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
 
         private void MoveToNextLevel()
         {
-            _frogPlayer.ResetFrog(_staticData.PlayerData().startPoint.position);
+            _frogPlayer.Reset(_staticData.PlayerData().startPoint.position);
             _frogCamera.ResetPosition();
             
             _cinemachineSwitcher.SwitchState();

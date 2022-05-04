@@ -38,7 +38,7 @@ namespace CodeBase.Frog
         public void ResetVelocity() => 
             _frogRigidbody.velocity = Vector2.zero;
 
-        public void MoveTo(Vector2 position, float moveDuration)
+        public void Move(Vector2 position, float moveDuration)
         {
             _frogRigidbody.isKinematic = true;
             transform

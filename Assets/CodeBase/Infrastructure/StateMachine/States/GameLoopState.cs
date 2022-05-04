@@ -141,7 +141,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
 
         public void OnExit()
         {
-            _frogPlayer.Disable();
+            _frogPlayer.DisableArrow();
             UnsubscribeOnInput();
         }
 
@@ -186,6 +186,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
 
         private void OnContinueGame()
         {
+            _frogPlayer.DisableArrow();
             _isPaused = false;
             _timeService.Resume();
         }

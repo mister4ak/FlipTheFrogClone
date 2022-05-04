@@ -63,7 +63,7 @@ namespace CodeBase.Infrastructure.StateMachine.States
             _deadZone.gameObject.SetActive(false);
             yield return new WaitForSeconds(1);
             
-            _frogPlayer.ResetFrog(_staticData.PlayerData().startPoint.position);
+            _frogPlayer.Reset(_staticData.PlayerData().startPoint.position);
             _frogCamera.ResetPosition();
             
             ResetCoinsActiveState();

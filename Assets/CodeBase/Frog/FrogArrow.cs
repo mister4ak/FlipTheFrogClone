@@ -39,6 +39,7 @@ namespace CodeBase.Frog
 
         public void SetHoldArrowPosition(Vector2 holdPosition)
         {
+            Debug.Log(holdPosition);
             float dragDistance = Vector2.Distance(_arrowStartPosition, holdPosition);
             if (dragDistance > _maxDragDistance)
                 SetArrowlineMaxlength(holdPosition);

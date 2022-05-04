@@ -38,29 +38,35 @@ namespace CodeBase.Frog
             Jumped?.Invoke();
         }
 
-        public void Disable() => 
+        public void DisableArrow() => 
             _frogArrow.SetActiveState(false);
 
         public void Move(Vector2 from, Vector2 to, float duration)
         {
             _frogMover.ResetVelocity();
-            SetPosition(from);
-            _frogMover.MoveTo(to, duration);
+            RelocateFrog(from);
+            _frogMover.Move(to, duration);
         }
 
-        private void SetFrogTrailState(bool state) => 
-            _frogTrail.enabled = state;
+        public void Reset(Vector2 startPosition)
+        {
+            RelocateFrog(startPosition);
+            _frogMover.ResetVelocity();
+            ReactivateFrog();
+        }
+
+        private void RelocateFrog(Vector2 position)
+        {
+            _frogTrail.enabled = false;
+            SetPosition(position);
+            _frogTrail.enabled = true;
+        }
 
         private void SetPosition(Vector2 position) => 
             transform.position = position;
 
-        public void ResetFrog(Vector2 startPosition)
+        private void ReactivateFrog()
         {
-            SetFrogTrailState(false);
-            SetPosition(startPosition);
-            SetFrogTrailState(true);
-            
-            _frogMover.ResetVelocity();
             gameObject.SetActive(true);
             _died = false;
         }
