@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagment;
 using CodeBase.Infrastructure.Services;
@@ -13,8 +12,6 @@ namespace CodeBase.Infrastructure
     public class Boot : MonoBehaviour
     {
         private const string MainMenuScene = "MainMenu";
-        // private const string LevelsDirectoryPath = "Assets/Resources/Levels";
-        // private const string SearchPattern = "*.prefab";
         private const string DefaultSkinName = "FrogBrown";
         
         private SceneLoader _sceneLoader;
@@ -40,7 +37,6 @@ namespace CodeBase.Infrastructure
         {
             LoadStaticData();
             LoadProgressOrInitNew();
-            //_sceneLoader.Load("Game");
             _sceneLoader.Load(MainMenuScene);
         }
 
@@ -59,12 +55,11 @@ namespace CodeBase.Infrastructure
             InitTaskData(progress);
             InitSettingsData(progress);
 
-            Debug.Log(progress.PlayerData.coins);
             return progress;
         }
 
         private void InitSettingsData(PlayerProgress progress) => 
-            progress.PlayerSettings.isAudioPaused = true;
+            progress.PlayerSettings.isAudioPaused = false;
 
         private void InitTaskData(PlayerProgress progress)
         {

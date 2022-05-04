@@ -31,12 +31,6 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<PersistentProgressService>().AsSingle();
             Container.Bind<SaveLoadService>().AsSingle();
             Container.Bind<StaticDataService>().AsSingle();
-            BindInputService();
-            Debug.Log("BindServices");
-        }
-
-        private void BindInputService()
-        {
             Container.BindInterfacesAndSelfTo<MouseInput>().AsSingle();
         }
 
@@ -64,7 +58,6 @@ namespace CodeBase.Infrastructure.Installers
             CoinText hud = Container
                 .InstantiatePrefabForComponent<CoinText>(_coinHudPrefab);
 
-            Debug.Log("CoinText Instantiated");
             Container.BindInterfacesAndSelfTo<CoinText>().FromInstance(hud).AsSingle();
         }
 

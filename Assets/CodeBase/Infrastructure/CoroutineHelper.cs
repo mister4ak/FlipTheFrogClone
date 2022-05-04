@@ -1,13 +1,10 @@
-using System;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
 {
     public class CoroutineHelper : MonoBehaviour
     {
-        private void Awake()
-        {
+        private void Awake() => 
             DontDestroyOnLoad(gameObject);
-        }
     }
 }

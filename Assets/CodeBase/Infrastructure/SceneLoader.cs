@@ -13,11 +13,8 @@ namespace CodeBase.Infrastructure
         public SceneLoader(CoroutineHelper coroutineHelper) => 
             _coroutineHelper = coroutineHelper;
 
-        public void Load(string sceneName, Action onLoaded = null)
-        {
-            Debug.Log("In Scene Loader");
+        public void Load(string sceneName, Action onLoaded = null) => 
             _coroutineHelper.StartCoroutine(LoadSceneCoroutine(sceneName, onLoaded));
-        }
 
         private IEnumerator LoadSceneCoroutine(string sceneName, Action onLoaded = null)
         {
