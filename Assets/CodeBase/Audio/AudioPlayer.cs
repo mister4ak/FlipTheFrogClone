@@ -13,11 +13,20 @@ namespace CodeBase.Audio
         private bool _isAudioPaused;
 
         [Inject]
-        private void Construct(PersistentProgressService progressService) => 
+        private void Construct(PersistentProgressService progressService)
+        {
+            Debug.Log("Contruct in audio");
             _progressService = progressService;
+        }
+        
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
         private void Start()
         {
+            Debug.Log("Audio Started");
             _isAudioPaused = _progressService.Progress.PlayerSettings.isAudioPaused;
             AudioListener.pause = _isAudioPaused;
         }

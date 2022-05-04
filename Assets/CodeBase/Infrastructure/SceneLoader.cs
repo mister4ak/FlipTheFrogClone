@@ -15,6 +15,7 @@ namespace CodeBase.Infrastructure
 
         public void Load(string sceneName, Action onLoaded = null)
         {
+            Debug.Log("In Scene Loader");
             _coroutineHelper.StartCoroutine(LoadSceneCoroutine(sceneName, onLoaded));
         }
 

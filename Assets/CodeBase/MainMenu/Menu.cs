@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Tasks;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Menu;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace CodeBase.MainMenu
@@ -75,6 +76,15 @@ namespace CodeBase.MainMenu
                 progressReader.LoadProgress(_progressService.Progress);
         }
 
+        // private void OnPlayClicked()
+        // {
+        //     //_crossfadeWindow.Open();
+        //     //SceneManager.LoadScene("Game");
+        //     //_sceneLoader.Load(GameSceneName);
+        // }
+
+        private void LoadScene() => 
+            _sceneLoader.Load(GameSceneName);
         private void OnPlayClicked() => 
             _crossfadeWindow.Open(() => _sceneLoader.Load(GameSceneName));
 

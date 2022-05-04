@@ -32,6 +32,7 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<SaveLoadService>().AsSingle();
             Container.Bind<StaticDataService>().AsSingle();
             BindInputService();
+            Debug.Log("BindServices");
         }
 
         private void BindInputService()
@@ -63,7 +64,8 @@ namespace CodeBase.Infrastructure.Installers
             CoinText hud = Container
                 .InstantiatePrefabForComponent<CoinText>(_coinHudPrefab);
 
-            Container.Bind<CoinText>().FromInstance(hud).AsSingle();
+            Debug.Log("CoinText Instantiated");
+            Container.BindInterfacesAndSelfTo<CoinText>().FromInstance(hud).AsSingle();
         }
 
         private void BindAudioPlayer()

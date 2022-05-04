@@ -13,8 +13,8 @@ namespace CodeBase.Infrastructure
     public class Boot : MonoBehaviour
     {
         private const string MainMenuScene = "MainMenu";
-        private const string LevelsDirectoryPath = "Assets/Resources/Levels";
-        private const string SearchPattern = "*.prefab";
+        // private const string LevelsDirectoryPath = "Assets/Resources/Levels";
+        // private const string SearchPattern = "*.prefab";
         private const string DefaultSkinName = "FrogBrown";
         
         private SceneLoader _sceneLoader;
@@ -40,6 +40,7 @@ namespace CodeBase.Infrastructure
         {
             LoadStaticData();
             LoadProgressOrInitNew();
+            //_sceneLoader.Load("Game");
             _sceneLoader.Load(MainMenuScene);
         }
 
@@ -58,6 +59,7 @@ namespace CodeBase.Infrastructure
             InitTaskData(progress);
             InitSettingsData(progress);
 
+            Debug.Log(progress.PlayerData.coins);
             return progress;
         }
 
@@ -83,11 +85,8 @@ namespace CodeBase.Infrastructure
         {
             progress.PlayerData.coins = 100;
             progress.PlayerData.currentLevelIndex = 1;
-            progress.PlayerData.levelsCount = CalculateNumberOfLevel();
+            progress.PlayerData.levelsCount = 7;
             progress.PlayerData.isTutorialCompleted = false;
         }
-
-        private int CalculateNumberOfLevel() => 
-            Directory.GetFiles(LevelsDirectoryPath, SearchPattern).Length;
     }
 }

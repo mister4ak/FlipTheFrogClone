@@ -29,6 +29,10 @@ namespace CodeBase.Infrastructure.Services
                     _rewardedVideoID = RewardedVideoAndroidId;
                     _gameId = AndroidGameId;
                     break;
+                case RuntimePlatform.WindowsPlayer:
+                    _rewardedVideoID = RewardedVideoAndroidId;
+                    _gameId = AndroidGameId;
+                    break;
                 default:
                     Debug.Log("Unsupported platform for ADs");
                     break;
